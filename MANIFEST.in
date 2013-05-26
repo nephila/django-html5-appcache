@@ -1,0 +1,2 @@
+include README.rst LICENCE.txt
+recursive-include html5_appcache *.png *.jpg *.jpeg *.py *.html *.js
