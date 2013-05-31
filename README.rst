@@ -35,7 +35,7 @@ Installation
 
 To get started using ``django-html5-appcache`` install it with ``pip``::
 
-    $ pip install https://github.com/nephila/django-html5-appcache.git
+    $ pip install gitt+https://github.com/nephila/django-html5-appcache.git#egg=django-html5-appcache
 
 Configuration
 -------------
@@ -46,7 +46,7 @@ Configuration
 * Add it to ``URLCONF``::
 
     urlpatterns = patterns('',
-        url('^', include('django_appcache.urls')),
+        url('^', include('html5_appcache.urls')),
     )
 
 Customization
