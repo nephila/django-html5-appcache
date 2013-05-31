@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- this is a comment -->
+    <title></title>
+    <link href="{{STATIC_URL}}css/stile.css" rel="stylesheet">
+    <link href="http://www.example.com/static/css/stile.css" data-appcache="noappcache" rel="stylesheet">
+    <script src="{{STATIC_URL}}css/stile.css"></script>
+</head>
+<body>
+{% for news in object_list %}
+<img src="{{news.ext_assett}}" data-appcache-fallback="/static/img/fallback.png">
+<a href="{{ news.get_absolute_url}}"><img src="{{news.icon }}">{{news.title}}</a>
+{% endfor %}
+</body>
+</html>

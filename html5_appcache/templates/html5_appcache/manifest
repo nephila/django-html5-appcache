@@ -1,0 +1,14 @@
+CACHE MANIFEST
+# version: ${{version}}$
+{% if cached_urls %}
+CACHE:
+{% for url in cached_urls %}{{url}}
+{% endfor %}{% endif %}
+{% if network_urls %}
+NETWORK:
+{% for url in network_urls %}{{url}}
+{% endfor %}{% endif %}
+{% if fallback_urls %}
+FALLBACK:
+{% for original_url, fallback_url in fallback_urls.items %}{{original_url}} {{fallback_url}}
+{% endfor %}{% endif %}
