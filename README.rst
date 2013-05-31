@@ -2,6 +2,9 @@
 django-html5-appcache
 =====================
 
+.. image:: https://travis-ci.org/nephila/django-html5-appcache.png?branch=master
+   :align: right
+
 Application to manage HTML5 Appcache Manifest files for dynamic Django web applications.
 
 While handy and quite simple in its structure, manifest files is quite burdensome
