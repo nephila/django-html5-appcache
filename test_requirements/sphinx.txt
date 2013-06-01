@@ -1,0 +1,2 @@
+Sphinx
+-r django-1.4.txt
