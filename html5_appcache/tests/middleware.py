@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from django.test import RequestFactory
 
 from html5_appcache.middleware.appcache_middleware import AppCacheAssetsFromResponse
 from html5_appcache.test_utils.base import BaseDataTestCase
@@ -9,7 +8,7 @@ from html5_appcache.test_utils.testapp.views import NewsListView
 class MiddlewareTest(BaseDataTestCase):
 
     def test_middleware_extraction(self):
-        request = RequestFactory().get('/fake-path')
+        request = self.get_request('/', data={'appcache_analyze':1})
         mid_instance = AppCacheAssetsFromResponse()
 
         view = NewsListView.as_view()

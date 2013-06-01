@@ -1,5 +1,6 @@
 CACHE MANIFEST
 # version: ${{version}}$
+# date: ${{date}}$
 {% if cached_urls %}
 CACHE:
 {% for url in cached_urls %}{{url}}

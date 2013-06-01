@@ -1,0 +1,2 @@
+django-cms<2.5
+-r django-1.4.txt

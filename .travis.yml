@@ -3,8 +3,11 @@ python:
     - "2.6"
     - "2.7"
 env:
-  - TOX_ENV=ci14
-  - TOX_ENV=ci15
+  - TOX_ENV=dj14
+  - TOX_ENV=dj15
+  - TOX_ENV=cms23
+  - TOX_ENV=cms24_14
+  - TOX_ENV=cms24_15
 
 install:
     - pip install tox --use-mirrors

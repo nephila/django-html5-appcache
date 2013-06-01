@@ -4,14 +4,19 @@ from django.http import HttpResponse
 from django.views.generic import TemplateView
 
 from . import appcache_registry
-from html5_appcache.appcache import AppCacheManager
 
 
 class ManifestAppCache(TemplateView):
+    """
+    Basic template view.
+    It just get the temlate from AppCacheManager and wrap it in a response
+    """
     template_name = "html5_appcache/manifest"
-    manager = None
+    appcache_update = 0
 
     def get(self, request, *args, **kwargs):
-        self.manager = AppCacheManager(self.request, appcache_registry, self.template_name)
-        manifest = self.manager.get_manifest()
-        return HttpResponse(content=manifest, content_type="text/cache-manifest")
+        appcache_registry.setup(self.request, self.template_name)
+        manifest = appcache_registry.get_manifest(update=kwargs.get("appcache_update", False))
+        if manifest:
+            return HttpResponse(content=manifest, content_type="text/cache-manifest")
+        return HttpResponse(content="CACHE MANIFEST", content_type="text/cache-manifest")
