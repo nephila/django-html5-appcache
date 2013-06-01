@@ -3,7 +3,7 @@ from django.test import RequestFactory, TransactionTestCase
 
 from html5_appcache.cache import (get_cached_manifest, set_cached_manifest,
                                   clear_cache_manifest, get_cache_version,
-                                  reset_cache_manifest)
+                                  reset_cache_manifest, set_cached_value)
 from html5_appcache.views import ManifestAppCache
 
 
@@ -13,13 +13,15 @@ class CacheTest(TransactionTestCase):
         clear_cache_manifest()
 
     def test_cache(self):
-        start = get_cache_version()
+        self.assertIsNone(get_cache_version())
         self.assertIsNone(get_cached_manifest())
         set_cached_manifest("ciao")
+        self.assertEqual(get_cache_version(), 1)
         self.assertEqual(get_cached_manifest(), "ciao")
         reset_cache_manifest()
-        self.assertIsNone(get_cached_manifest())
-        self.assertEqual(get_cache_version(), start+1)
+        set_cached_value("nociao",1)
+        self.assertEqual(get_cached_manifest(), "ciao")
+        self.assertEqual(get_cache_version(), 2)
 
     def test_base_view(self):
         request = RequestFactory().get('/fake-path')

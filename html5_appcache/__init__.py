@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
+from distutils.version import LooseVersion
 from django.utils import importlib
+from .appcache_base import AppCacheManager
 
-__version__ = '0.1.0'
+__version__ = "0.2.0a"
+
+appcache_registry = AppCacheManager()
 
 
 def autodiscover():
@@ -41,4 +45,4 @@ def autodiscover():
         # to bubble up.
         importlib.import_module("%s.appcache" % app)
 
-appcache_registry = []
+    appcache_registry.setup_registry()
