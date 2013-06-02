@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from itertools import ifilter
 import string
 import time
 from datetime import datetime
@@ -139,6 +140,8 @@ class AppCacheManager(object):
                 self._cached.update(appcache.get_assets(self.request))
             self._cached.update(self._external_appcaches['cached'])
         self._cached.difference_update(self.get_network_urls())
+        if get_setting('DISCARD_EXTERNAL'):
+            self._cached = filter(lambda x: not x.startswith('http://'), self._cached)
         return self._cached
 
     def get_network_urls(self):

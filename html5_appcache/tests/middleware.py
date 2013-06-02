@@ -18,6 +18,6 @@ class MiddlewareTest(BaseDataTestCase):
         self.assertTrue(processed.appcache)
         self.assertEqual(len(processed.appcache), 3)
 
-        self.assertEqual(len(processed.appcache['cached']), 3)
+        self.assertEqual(len(processed.appcache['cached']), 4)
         self.assertEqual(len(processed.appcache['fallback']), 2)
         self.assertEqual(len(processed.appcache['network']), 1)
