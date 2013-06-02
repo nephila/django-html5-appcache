@@ -18,25 +18,45 @@ class BaseAppCache(object):
     """
     Base class for Appcache classes
     """
+    manager = None
+
     def __init__(self):
         pass
 
     def _add_language(self, request, urls):
+        """ For django CMS 2.3 we need to manually add language code to the
+        urls returned by the appcache classes
+        """
         if DJANGOCMS_2_3:
             return ["/%s%s" % (request.LANGUAGE_CODE, url) for url in urls]
         else:
             return urls
 
     def _get_assets(self, request):
+        """
+        Redefine this method to customize asset (images, files, javascripts,
+        stylesheets) urls.
+        """
         return []
 
     def _get_urls(self, request):
+        """
+        Redefine this method to define cached urls.
+
+        If you use a sitemap-enabled application, it's not normally necessary.
+        """
         return []
 
     def _get_network(self, request):
+        """
+        Redefine this method to define network (non-cached) urls.
+        """
         return []
 
     def _get_fallback(self, request):
+        """
+        Redefine this method to define fallback urls.
+        """
         return {}
 
     def get_assets(self, request):
@@ -52,6 +72,9 @@ class BaseAppCache(object):
         return {}
 
     def signal_connector(self, instance, **kwargs):
+        """
+        You **must** redefine this method in you ``AppCache`` class.
+        """
         return NotImplementedError("signal_connector must be implemented for appcache to work")
 
 class AppCacheManager(object):
@@ -68,6 +91,9 @@ class AppCacheManager(object):
         self.registry = []
 
     def setup_registry(self):
+        """
+
+        """
         self._setup_signals()
 
     def _setup_signals(self):
