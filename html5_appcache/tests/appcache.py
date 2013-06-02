@@ -70,6 +70,12 @@ class UpdateCommandTestCase(BaseDataTestCase):
         clear_cache_manifest()
         super(UpdateCommandTestCase, self).tearDown()
 
+    def test_clear_command(self):
+        set_cached_manifest("dummy")
+        call_command("clear_manifest")
+        manifest = get_cached_manifest()
+        self.assertIsNone(manifest)
+
     def test_update_command(self):
         lang = "/" + settings.LANGUAGE_CODE
         t_cache = """CACHE:

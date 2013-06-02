@@ -38,7 +38,7 @@ class ManifestUpdateView(ManifestAppCache):
         if kwargs.get("appcache_update", False):
             if request.user.is_authenticated() and request.user.has_perm('html5_appcache.can_update_manifest'):
                 manifest = appcache_registry.get_manifest(update=True)
-                return HttpResponse(content="Ok", content_type="text/plain")
+                return HttpResponse(content="OK", content_type="text/plain")
             else:
                 return HttpResponseForbidden(_("Current user is not authorized for this action"))
         return HttpResponseBadRequest(_("Method not allowed for this view"))
