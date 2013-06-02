@@ -23,7 +23,7 @@ def get_setting(key):
         'CACHE_KEY': getattr(settings, "HTML5_APPCACHE_CACHE_KEY", "html5_appcache"),
         'CACHE_DURATION': getattr(settings, "HTML5_APPCACHE_CACHE_DURATION", 86400),
         'USE_SITEMAP': getattr(settings, "HTML5_APPCACHE_USE_SITEMAP", True),
-        'DISCARD_EXTERNAL': getattr(settings, "HTML5_APPCACHE_DISCARD_EXTERNAL", False),
+        'DISCARD_EXTERNAL': getattr(settings, "HTML5_APPCACHE_DISCARD_EXTERNAL", True),
         'SITEMAP_URL': getattr(settings, "HTML5_APPCACHE_SITEMAP_URL", "/sitemap.xml"),
         'CACHED_URL': getattr(settings, "HTML5_APPCACHE_CACHED_URL", []),
         'NETWORK_URL': getattr(settings, "HTML5_APPCACHE_NETWORK_URL", []),

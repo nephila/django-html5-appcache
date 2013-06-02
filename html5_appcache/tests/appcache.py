@@ -44,6 +44,13 @@ class AppcacheTestCase(BaseDataTestCase):
             for url in urls:
                 self.assertTrue(url.startswith("/en"))
 
+    def test_include_external_reference(self):
+        with self.settings(HTML5_APPCACHE_DISCARD_EXTERNAL=False):
+            request = self.get_request('/')
+            appcache_registry.setup(request, "")
+            urls = appcache_registry.get_cached_urls()
+            self.assertEqual(len(urls), 4)
+
     def test_signal_save(self):
         set_cached_manifest("dummy")
         news1 = News.objects.get(pk=1)
