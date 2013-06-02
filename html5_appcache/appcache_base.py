@@ -9,10 +9,9 @@ from lxml.html import document_fromstring
 from django.template import RequestContext
 from django.template.loader import render_to_string
 
-from html5_appcache.settings import DJANGOCMS, DJANGOCMS_2_3
+from html5_appcache.settings import DJANGOCMS, DJANGOCMS_2_3, get_setting, DJANGO_1_4
 from html5_appcache.cache import *
-
-from .settings import get_setting, DJANGO_1_4
+from html5_appcache.utils import is_external_url
 
 
 class BaseAppCache(object):
@@ -31,7 +30,7 @@ class BaseAppCache(object):
         if DJANGOCMS_2_3:
             new_urls = []
             for url in urls:
-                if not url.startswith("http://"):
+                if not is_external_url(url, request):
                     new_urls.append("/%s%s" % (request.LANGUAGE_CODE, url))
                 else:
                     new_urls.append(url)
@@ -147,7 +146,7 @@ class AppCacheManager(object):
             self._cached.update(self._external_appcaches['cached'])
         self._cached.difference_update(self.get_network_urls())
         if get_setting('DISCARD_EXTERNAL'):
-            self._cached = filter(lambda x: not x.startswith('http://'), self._cached)
+            self._cached = filter(lambda url: not is_external_url(url, self.request), self._cached)
         return self._cached
 
     def get_network_urls(self):
