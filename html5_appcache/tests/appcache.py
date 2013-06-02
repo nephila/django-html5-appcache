@@ -81,6 +81,7 @@ class UpdateCommandTestCase(BaseDataTestCase):
 /static/img/icon2.png
 """ % (lang, lang, lang)
         t_network = """NETWORK:
+*
 %s/1/live/
 %s/2/live/
 http://www.example.com/static/css/stile.css

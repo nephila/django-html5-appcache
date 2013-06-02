@@ -154,6 +154,7 @@ class AppCacheManager(object):
             for appcache in self.registry:
                 self._network.update(appcache.get_network(self.request))
             self._network.update(self._external_appcaches['network'])
+        self._network.update(("*",))
         return self._network
 
     def get_fallback_urls(self):
