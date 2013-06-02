@@ -49,7 +49,7 @@ class AppcacheTestCase(BaseDataTestCase):
             request = self.get_request('/')
             appcache_registry.setup(request, "")
             urls = appcache_registry.get_cached_urls()
-            self.assertEqual(len(urls), 4)
+            self.assertEqual(len(urls), 6)
 
     def test_signal_save(self):
         set_cached_manifest("dummy")
@@ -81,6 +81,7 @@ class UpdateCommandTestCase(BaseDataTestCase):
 /static/img/icon2.png
 """ % (lang, lang, lang)
         t_network = """NETWORK:
+*
 %s/1/live/
 %s/2/live/
 http://www.example.com/static/css/stile.css

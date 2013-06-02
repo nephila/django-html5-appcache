@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from distutils.version import LooseVersion
 from django.utils import importlib
-from .appcache_base import AppCacheManager
+from html5_appcache.appcache_base import AppCacheManager
 
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 
 appcache_registry = AppCacheManager()
 
