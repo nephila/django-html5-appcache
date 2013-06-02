@@ -7,7 +7,7 @@ Cache maintains two version of the manifest file:
 The use of a version permit to continue serving older, but somehow still valid,
 manifest data. Depending on the actual data, it may need immediate update.
 """
-from .settings import get_setting
+from html5_appcache.settings import get_setting
 
 manifest_cache_keys = (
     "manifest", "timestamp", "data_clean"

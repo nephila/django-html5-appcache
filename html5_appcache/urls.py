@@ -2,7 +2,7 @@
 from django.conf.urls import url, patterns
 from django.views.decorators.cache import never_cache
 
-from .views import ManifestAppCache
+from html5_appcache.views import ManifestAppCache
 
 urlpatterns = patterns('',
     url("^manifest.appcache$",

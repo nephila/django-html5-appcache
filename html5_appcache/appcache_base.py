@@ -9,9 +9,9 @@ from lxml.html import document_fromstring
 from django.template import RequestContext
 from django.template.loader import render_to_string
 
-from .settings import DJANGOCMS, DJANGOCMS_2_3, get_setting, DJANGO_1_4
-from .cache import *
-from .utils import is_external_url
+from html5_appcache.settings import DJANGOCMS, DJANGOCMS_2_3, get_setting, DJANGO_1_4
+from html5_appcache.cache import *
+from html5_appcache.utils import is_external_url
 
 
 class BaseAppCache(object):

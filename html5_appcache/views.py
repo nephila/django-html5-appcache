@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 
-from . import appcache_registry
+from html5_appcache import appcache_registry
 
 
 class ManifestAppCache(TemplateView):
