@@ -29,7 +29,13 @@ class BaseAppCache(object):
         urls returned by the appcache classes
         """
         if DJANGOCMS_2_3:
-            return ["/%s%s" % (request.LANGUAGE_CODE, url) for url in urls]
+            new_urls = []
+            for url in urls:
+                if not url.startswith("http://"):
+                    new_urls.append("/%s%s" % (request.LANGUAGE_CODE, url))
+                else:
+                    new_urls.append(url)
+            return new_urls
         else:
             return urls
 

@@ -13,7 +13,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.language = "en"
-        request = RequestFactory().get('/fake-path')
+        request = RequestFactory().get('/')
         request.LANGUAGE_CODE=self.language
         appcache_registry.setup(request, "html5_appcache/manifest")
         if get_setting("OVERRIDE_URLCONF"):
@@ -22,13 +22,14 @@ class Command(BaseCommand):
             return self.get_urls()
 
     def get_url(self, client, url):
-        response = client.get(url, data={"appcache_analyze":1}, LANGUAGE_CODE=self.language)
-        if response.status_code == 200:
-            appcache_registry.add_appcache(response.appcache)
-        elif response.status_code == 302:
-            self.get_url(client, response['Location'])
-        else:
-            print "Unrecognized code %s for %s" % (response.status_code, url)
+        if not url.startswith("http://"):
+            response = client.get(url, data={"appcache_analyze":1}, LANGUAGE_CODE=self.language)
+            if response.status_code == 200:
+                appcache_registry.add_appcache(response.appcache)
+            elif response.status_code == 302:
+                self.get_url(client, response['Location'])
+            else:
+                print "Unrecognized code %s for %s" % (response.status_code, url)
 
     def get_urls(self):
         clear_cache_manifest()

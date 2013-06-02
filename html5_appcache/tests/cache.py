@@ -24,7 +24,7 @@ class CacheTest(TransactionTestCase):
         self.assertEqual(get_cache_version(), 2)
 
     def test_base_view(self):
-        request = RequestFactory().get('/fake-path')
+        request = RequestFactory().get('/')
         view = ManifestAppCache.as_view()
         response = view(request)
         self.assertContains(response, "CACHE MANIFEST")
