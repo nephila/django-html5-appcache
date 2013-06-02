@@ -3,7 +3,7 @@ from distutils.version import LooseVersion
 from django.utils import importlib
 from .appcache_base import AppCacheManager
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 appcache_registry = AppCacheManager()
 
