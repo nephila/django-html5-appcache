@@ -6,10 +6,12 @@ from django.test.utils import override_settings
 from html5_appcache import appcache_registry
 from html5_appcache.cache import clear_cache_manifest
 from html5_appcache.settings import get_setting
+from html5_appcache.utils import is_external_url
 
 
 class Command(BaseCommand):
     help = 'Update appcache manifest loading all the pages from the sitemap. Manifest is loaded in the cache.'
+    language = None
 
     def handle(self, *args, **options):
         self.language = "en"
@@ -22,7 +24,7 @@ class Command(BaseCommand):
             return self.get_urls()
 
     def get_url(self, client, url):
-        if not url.startswith("http://"):
+        if not is_external_url(url):
             response = client.get(url, data={"appcache_analyze":1}, LANGUAGE_CODE=self.language)
             if response.status_code == 200:
                 appcache_registry.add_appcache(response.appcache)
