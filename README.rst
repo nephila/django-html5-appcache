@@ -17,9 +17,6 @@ While still in pre-alpha state it should be usable, at least for testing purpose
 
 Documentation is in progress.
 
-At the moment it's only available from github, a later release on PyPi is planned
-as soon as code is stabilized and full docs are written.
-
 As generating manifest file can be quite resource intensive for larger sites,
 it uses the Django cache system.
 
@@ -34,6 +31,10 @@ Installation
 ------------
 
 To get started using ``django-html5-appcache`` install it with ``pip``::
+
+    $ pip install django-html5-appcache
+
+If you want to use the development version install from github::
 
     $ pip install git+https://github.com/nephila/django-html5-appcache.git#egg=django-html5-appcache
 
