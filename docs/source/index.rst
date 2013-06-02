@@ -8,7 +8,8 @@ Welcome to django-html5-appcache's documentation!
 
 This document refers to version |release|
 
-Application to manage HTML5 Appcache Manifest files for dynamic Django web applications.
+Application to manage `HTML5 Appcache Manifest <http://en.wikipedia.org/wiki/Cache_manifest_in_HTML5>`_
+files for dynamic Django web applications.
 
 While handy and quite simple in its structure, manifest files is quite burdensome
 to keep up-to-date on dynamic websites.
@@ -35,15 +36,7 @@ Usage
 .. toctree::
    :maxdepth: 1
 
-   cli.rst
-   appcache.rst
    concepts.rst
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   appcache.rst
+   cli.rst
 

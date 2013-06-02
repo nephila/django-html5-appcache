@@ -37,4 +37,4 @@ To get started using ``django-html5-appcache`` install it with ``pip``::
 
     $ pip install git+https://github.com/nephila/django-html5-appcache.git#egg=django-html5-appcache
 
-See documentation for further details.
+See :ref:`documentation <installation>` for further details.
