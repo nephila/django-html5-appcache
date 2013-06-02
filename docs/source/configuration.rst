@@ -2,7 +2,7 @@
 Advanced configuration
 **********************
 
-No further configuration is needed to run ``html5-appcache``; you can
+While no specific configuration is needed to run ``html5-appcache``, you can
 customize its behavior for your own needs with the following parameters:
 
 HTML5_APPCACHE_CACHE_KEY
