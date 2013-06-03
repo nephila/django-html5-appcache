@@ -2,12 +2,14 @@
 import os.path
 
 from django.conf import settings
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseBadRequest
 from django.views.generic import TemplateView, View
 
 from html5_appcache import appcache_registry
 from html5_appcache.cache import is_manifest_clean
+from html5_appcache.settings import get_setting
 
 
 class ManifestAppCache(TemplateView):
@@ -19,17 +21,20 @@ class ManifestAppCache(TemplateView):
     appcache_update = 0
 
     def get(self, request, *args, **kwargs):
-        appcache_registry.setup(request, self.template_name)
-        if kwargs.get("appcache_update", False):
-            if request.user.is_authenticated() and request.user.has_perm('html5_appcache.can_update_manifest'):
-                manifest = appcache_registry.get_manifest(update=True)
+        if not get_setting("DISABLE"):
+            appcache_registry.setup(request, self.template_name)
+            if kwargs.get("appcache_update", False):
+                if request.user.is_authenticated() and request.user.has_perm('html5_appcache.can_update_manifest'):
+                    manifest = appcache_registry.get_manifest(update=True)
+                else:
+                    return HttpResponseForbidden(_("Current user is not authorized for this action"))
             else:
-                return HttpResponseForbidden(_("Current user is not authorized for this action"))
+                manifest = appcache_registry.get_manifest()
         else:
-            manifest = appcache_registry.get_manifest()
-        if manifest:
-            return HttpResponse(content=manifest, content_type="text/cache-manifest")
-        return HttpResponse(content="CACHE MANIFEST", content_type="text/cache-manifest")
+            manifest = render_to_string(self.template_name, dictionary={
+                'version': 0, 'date': '-', 'network_urls': ['*']
+            })
+        return HttpResponse(content=manifest, content_type="text/cache-manifest")
 
 
 class ManifestUpdateView(ManifestAppCache):

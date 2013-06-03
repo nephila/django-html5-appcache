@@ -18,7 +18,11 @@ class AppCacheNode(template.Node):
     def __init__(self):
         pass
     def render(self, context):
-        return mark_safe('manifest="%s"' % reverse('appcache_manifest'))
+        from html5_appcache.settings import get_setting
+        if get_setting("DISABLE"):
+            return ""
+        else:
+            return mark_safe('manifest="%s"' % reverse('appcache_manifest'))
 register.tag('appcache_link', appcache_link)
 
 def appcache_icon(parser, token):
