@@ -35,7 +35,8 @@ class ManifestAppCache(TemplateView):
 class ManifestUpdateView(ManifestAppCache):
     def get(self, request, *args, **kwargs):
         appcache_registry.setup(request, self.template_name)
-        if kwargs.get("appcache_update", False):
+        print kwargs, args, request
+        if request.is_ajax():
             if request.user.is_authenticated() and request.user.has_perm('html5_appcache.can_update_manifest'):
                 manifest = appcache_registry.get_manifest(update=True)
                 return HttpResponse(content="OK", content_type="text/plain")

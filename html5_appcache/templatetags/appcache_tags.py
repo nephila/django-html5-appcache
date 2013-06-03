@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from django.template import Context, RequestContext
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
@@ -18,3 +20,24 @@ class AppCacheNode(template.Node):
     def render(self, context):
         return mark_safe('manifest="%s"' % reverse('appcache_manifest'))
 register.tag('appcache_link', appcache_link)
+
+def appcache_icon(parser, token):
+    """
+    Add the cache status icon
+    """
+    return AppCacheStatusIconNode()
+
+class AppCacheStatusIconNode(template.Node):
+    _template = "html5_appcache/templatetags/icon.html"
+    def __init__(self):
+        pass
+    def render(self, context):
+        local = {
+        }
+        print "x", context
+        template_context = RequestContext(context['request'], local)
+        print template_context
+        rendered = render_to_string(self._template, context_instance=template_context)
+        print rendered
+        return rendered
+register.tag('appcache_icon', appcache_icon)
