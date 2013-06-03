@@ -5,6 +5,16 @@ Advanced configuration
 While no specific configuration is needed to run ``html5-appcache``, you can
 customize its behavior for your own needs with the following parameters:
 
+HTML5_APPCACHE_DISABLE
+======================
+
+If you want to keep ``django-html5-appcache`` installed but you want to disable
+it temporarely (for debug purposes, for example), set this parameter to ``True``:
+it makes the manifest view return a non-caching manifest file and disables ``appcache_link``
+templatetag.
+
+*Defaults*: ``False``
+
 HTML5_APPCACHE_CACHE_KEY
 ========================
 

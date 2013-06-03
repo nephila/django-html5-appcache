@@ -38,5 +38,6 @@ Usage
 
    concepts.rst
    appcache.rst
+   web.rst
    cli.rst
 

@@ -1,0 +1,14 @@
+==== 0.2.0 (2013-06-02) ====
+
+ - Initial release
+
+==== 0.2.2 (2013-06-02) ====
+
+ - Fixes issues with Google Chrome
+
+==== 0.3.0 (2013-06-03) ====
+
+ - Templatetag added to display cache status
+ - More tests
+ - Added security check for sensitive views
+
