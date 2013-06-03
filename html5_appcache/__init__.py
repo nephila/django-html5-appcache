@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-from distutils.version import LooseVersion
-from django.utils import importlib
 from html5_appcache.appcache_base import AppCacheManager
 
-__version__ = "0.2.2"
+__version__ = "0.3.0b"
 
 appcache_registry = AppCacheManager()
 
@@ -17,6 +15,7 @@ def autodiscover():
     Code mostly borrowed from django.contrib.admin.
     """
     import imp
+    from django.utils import importlib
     from django.conf import settings
 
     for app in settings.INSTALLED_APPS:

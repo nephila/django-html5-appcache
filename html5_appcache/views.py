@@ -29,10 +29,12 @@ class ManifestAppCache(TemplateView):
         if not get_setting("DISABLE"):
             appcache_registry.setup(request, self.template_name)
             if kwargs.get("appcache_update", False):
-                if request.user.is_authenticated() and request.user.has_perm('html5_appcache.can_update_manifest'):
+                if (request.user.is_authenticated() and
+                        request.user.has_perm('html5_appcache.can_update_manifest')):
                     manifest = appcache_registry.get_manifest(update=True)
                 else:
-                    return HttpResponseForbidden(_("Current user is not authorized for this action"))
+                    return HttpResponseForbidden(
+                        _("Current user is not authorized for this action"))
             else:
                 manifest = appcache_registry.get_manifest()
         if not manifest:
@@ -44,8 +46,9 @@ class ManifestUpdateView(ManifestAppCache):
     def get(self, request, *args, **kwargs):
         appcache_registry.setup(request, self.template_name)
         if request.is_ajax():
-            if request.user.is_authenticated() and request.user.has_perm('html5_appcache.can_update_manifest'):
-                manifest = appcache_registry.get_manifest(update=True)
+            if (request.user.is_authenticated() and
+                    request.user.has_perm('html5_appcache.can_update_manifest')):
+                appcache_registry.get_manifest(update=True)
                 content = {
                     'text': "OK",
                     'success': True
@@ -63,7 +66,8 @@ class CacheStatusView(View):
     icons = ('html5_appcache_dirty', 'html5_appcache_clean')
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated() and request.user.has_perm('html5_appcache.can_view_cache_status'):
+        if (request.user.is_authenticated() and
+                request.user.has_perm('html5_appcache.can_view_cache_status')):
             filepath = os.path.join(settings.STATIC_ROOT, "img", "%s.png" % (
                 self.icons[int(is_manifest_clean())]
             ) )
@@ -72,4 +76,5 @@ class CacheStatusView(View):
                 response['Content-Length'] = os.path.getsize(filepath)
                 return response
         else:
-            return HttpResponseForbidden(_("Current user is not authorized for this action"))
+            return HttpResponseForbidden(
+                _("Current user is not authorized for this action"))
