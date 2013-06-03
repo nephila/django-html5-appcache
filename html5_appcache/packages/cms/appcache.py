@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-from html5_appcache import appcache_registry
-from html5_appcache.appcache_base import BaseAppCache
-
 from cms.models import Page, Title
 from cms.plugins.file.models import File
 from cms.plugins.flash.models import Flash
@@ -12,6 +9,10 @@ from cms.plugins.video.models import Video
 from cms.plugins.teaser.models import Teaser
 from cms.plugins.twitter.models import TwitterRecentEntries, TwitterSearch
 from cms.plugins.inherit.models import InheritPagePlaceholder
+
+from html5_appcache import appcache_registry
+from html5_appcache.appcache_base import BaseAppCache
+
 
 class CmsAppCache(BaseAppCache):
     """

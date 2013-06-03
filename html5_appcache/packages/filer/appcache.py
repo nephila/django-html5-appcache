@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+from filer.models import File, Image
+
 from html5_appcache import appcache_registry
 from html5_appcache.appcache_base import BaseAppCache
 
-from filer.models import File, Image
 
 class FilerAppCache(BaseAppCache):
     """

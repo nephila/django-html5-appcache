@@ -4,7 +4,6 @@ import re
 from html5_appcache.cache import reset_cache_manifest
 from html5_appcache.models import GlobalPermission
 from html5_appcache.test_utils.base import BaseDataTestCase
-
 from html5_appcache.views import ManifestAppCache, CacheStatusView, ManifestUpdateView
 
 

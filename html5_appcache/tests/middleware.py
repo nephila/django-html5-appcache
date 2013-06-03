@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from html5_appcache.middleware.appcache_middleware import AppCacheAssetsFromResponse
 from html5_appcache.test_utils.base import BaseDataTestCase
 from html5_appcache.test_utils.testapp.views import NewsListView

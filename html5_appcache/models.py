@@ -6,8 +6,8 @@ from django.contrib.contenttypes.models import ContentType
 
 class GlobalPermissionManager(models.Manager):
     def get_query_set(self):
-        return super(GlobalPermissionManager, self).\
-            get_query_set().filter(content_type__name='global_permission')
+        return (super(GlobalPermissionManager, self).
+                get_query_set().filter(content_type__name='global_permission'))
 
 
 class GlobalPermission(Permission):

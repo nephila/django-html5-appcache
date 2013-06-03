@@ -18,11 +18,14 @@ def get_cache_key(key):
     return "%s:%s" % (
         get_setting('CACHE_KEY'), key)
 
+
 def get_cache_version_key():
     return "%s:version" % get_setting('CACHE_KEY')
 
+
 def get_cache_version():
     return get_cached_value("data_clean", 1)
+
 
 def get_cached_value(key, version=None):
     from django.core.cache import cache
@@ -30,13 +33,16 @@ def get_cached_value(key, version=None):
         version = get_cache_version()
     return cache.get(get_cache_key(key), version=version)
 
+
 def set_cached_value(key, value, version=1):
     from django.core.cache import cache
     return cache.set(get_cache_key(key), value, get_setting('CACHE_DURATION'),
                      version=version)
 
+
 def get_cached_manifest():
     return get_cached_value("manifest")
+
 
 def set_cached_manifest(manifest):
     """
@@ -46,17 +52,20 @@ def set_cached_manifest(manifest):
     set_cached_value("manifest", manifest, 1)
     set_cached_value("manifest", manifest, 2)
 
+
 def reset_cache_manifest():
     """
     Move to version 2 (meaning stale data).
     """
     set_cached_value("data_clean", 2)
 
+
 def is_manifest_clean():
     """
     Signals if the cache is
     """
     return get_cache_version() == 1
+
 
 def clear_cache_manifest():
     """
