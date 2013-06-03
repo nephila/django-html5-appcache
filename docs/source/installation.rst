@@ -26,7 +26,7 @@ Requirements will be automatically installed.
 
 Run migrate command to sync your database::
 
-    $ python manage.py migrate
+    $ python manage.py migrate html5_appcache
 
 .. warning::
     Migrations have been added in 0.3.0. Don't skip this if you are upgrading from
@@ -70,6 +70,8 @@ Basic configuration
 
 * Enable the cache for your project. Refer to Django :django:setting:`CACHES`
   configuration.
+
+.. _djangocms-integration:
 
 django CMS integration
 ----------------------

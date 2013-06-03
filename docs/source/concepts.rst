@@ -15,13 +15,14 @@ The manifest file is generated collecting all the cached urls and exploring them
 using the test client to gather asset urls and including them in the manifest
 itself.
 
-This can be quie resource intensive, so the manifest file is saved in the cache;
+This can be quite resource intensive, so the manifest file is saved in the cache;
 the view that actually delivers the file manifest to the browser can thus use
 the cache to serve it with no performance impact.
 
 The manifest file is generated out-of-band using a
-:ref:`django command <command-cli>`; you can execute the command by hand or in
+:ref:`django command <command-cli>` so you can execute the command manually or in
 a cron job.
+Since 0.3.0 a view is provided, see :ref:`web_ui`_
 
 Cache invalidation
 ------------------

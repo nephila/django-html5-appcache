@@ -10,11 +10,21 @@ cache status and update the manifest file.
 The ``appcache_icon`` templatag show the cache status icon and hooks it to an
 ajax call that trigger the manifest update.
 
+Badges
+------
+
+.. figure:: ../../html5_appcache/static/img/html5_appcache_dirty.png
+
+    Outdated cache status badge
+
+.. figure:: ../../html5_appcache/static/img/html5_appcache_clean.png
+
+    Up-to-date cache status badge
 
 Installation
 ------------
 
-Add the following lines to any template you want this to appear::
+Add the following lines to any template you want the cache status badge to appear::
 
    {% load appcache_tags  %}
    ...

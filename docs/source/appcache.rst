@@ -4,8 +4,8 @@
 Enabling caching in your application
 ************************************
 
-``django-html5-appcache`` will automatically include in the manifest file the
-urls managed by your application if you included them in your sitemap; however,
+``django-html5-appcache`` will automatically include your application urls in
+the manifest file the if you have a sitemap-enabled application; however,
 to enable cache invalidation, is strongly advised to explicitly enable appcache
 support in your application.
 
@@ -86,6 +86,8 @@ django CMS plugins
 
 To enable cache invalidation for your own plugins, you must create an ``AppCache``
 class for your plugin models too.
+
+Support for the standard django CMS plugin is already included (see: :ref:`djangocms-integration`)
 
 The example below is the implementation of an appcache for django CMS text plugin::
 
