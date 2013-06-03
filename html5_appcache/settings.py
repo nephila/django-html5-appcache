@@ -20,6 +20,7 @@ DJANGO_1_5 = (LooseVersion(django.get_version()) < LooseVersion('1.6') and
 
 def get_setting(key):
     local_settings = {
+        'DISABLE': getattr(settings, "HTML5_APPCACHE_DISABLE", False),
         'CACHE_KEY': getattr(settings, "HTML5_APPCACHE_CACHE_KEY", "html5_appcache"),
         'CACHE_DURATION': getattr(settings, "HTML5_APPCACHE_CACHE_DURATION", 86400),
         'USE_SITEMAP': getattr(settings, "HTML5_APPCACHE_USE_SITEMAP", True),

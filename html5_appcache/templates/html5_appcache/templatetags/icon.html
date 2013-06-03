@@ -1,0 +1,28 @@
+{% load i18n %}
+{% load url from future %}
+{% if perms.html5_appcache.can_update_manifest %}
+<script>
+    var cache_update_url = '{% url 'appcache_manifest_update_ajax' %}';
+    $(document).ready(function() {
+        $("#appcache_icon").click(function(event){
+            $icon = $("img", $(this));
+            event.preventDefault();
+            var timestamp = new Date().getTime();
+            $.getJSON(cache_update_url,
+                    function(data, textStatus, jqXHR){
+                        if(data['success']) {
+                            alert('{% trans 'Manifest updated' %}');
+                            $icon.attr("src", $icon.attr("src")+"?"+timestamp);
+                        }
+                        else {
+                            alert(data['text']);
+                        }
+                    }
+            )
+        });
+    })
+</script>
+{% endif %}
+{% if perms.html5_appcache.can_view_cache_status %}
+<a href="#" id="appcache_icon" title="AppCache status"><img src="{% url 'appcache_manifest_status' %}" border="0" alt="AppCache status"></a>
+{% endif %}

@@ -19,6 +19,7 @@ included in Django to discover pages and assets as they are updated by the users
 
 See :ref:`Basic Concepts<basic-concepts>` for further details.
 
+
 *******
 Install
 *******
@@ -28,6 +29,7 @@ Install
 
    installation.rst
    configuration.rst
+   changelog.rst
 
 *****
 Usage
@@ -38,5 +40,6 @@ Usage
 
    concepts.rst
    appcache.rst
+   web.rst
    cli.rst
 

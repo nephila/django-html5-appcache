@@ -8,6 +8,8 @@ __version__ = "0.2.2"
 appcache_registry = AppCacheManager()
 
 
+# TODO: Test with caching disabled
+
 def autodiscover():
     """
     Automatically discover appcache declarations

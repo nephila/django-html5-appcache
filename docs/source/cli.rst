@@ -10,8 +10,12 @@ update_manifest
 ===============
 
 ``update_manifest`` is the command to update the manifest cache.
-Just run ``python manage.py update_manifest`` and your manifest file will be
-updated.
+
+Run::
+
+    $ python manage.py update_manifest
+
+and your manifest file will be updated.
 
 
 clear_manifest

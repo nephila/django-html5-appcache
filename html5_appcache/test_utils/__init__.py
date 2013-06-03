@@ -73,7 +73,11 @@ if DJANGOCMS:
             'cms',
             'mptt',
             'menus',
-            'sekizai'
+            'sekizai',
+            'filer',
+            'html5_appcache.packages.cms',
+            'html5_appcache.packages.filer',
+            'html5_appcache.packages.cmsplugin_filer',
         ]
         TEMPLATE_CONTEXT_PROCESSORS = [
             'django.contrib.auth.context_processors.auth',
@@ -107,11 +111,11 @@ else:
     ]
     
     TEMPLATE_CONTEXT_PROCESSORS = [
-            'django.contrib.auth.context_processors.auth',
-            'django.core.context_processors.i18n',
-            'django.core.context_processors.request',
-            'django.core.context_processors.media',
-            'django.core.context_processors.static',
+        'django.contrib.auth.context_processors.auth',
+        'django.core.context_processors.i18n',
+        'django.core.context_processors.request',
+        'django.core.context_processors.media',
+        'django.core.context_processors.static',
 ]
 
 
@@ -135,7 +139,7 @@ def run_tests():
         LANGUAGE_CODE='en',
         LANGUAGES=(('en', 'English'),('de','German'),('it','Italian')),
         STATIC_URL='/some/url/',
-        STATIC_ROOT=os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir, os.path.pardir),
+        STATIC_ROOT=os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir, 'static'),
         TEST_OUTPUT_VERBOSE=True,
         CMS_TEMPLATES=CMS_TEMPLATES,
         CMS_MODERATOR=False,

@@ -83,6 +83,7 @@ class BaseAppCache(object):
         """
         return NotImplementedError("signal_connector must be implemented for appcache to work")
 
+
 class AppCacheManager(object):
     """
     Main class.
@@ -174,9 +175,7 @@ class AppCacheManager(object):
         """
         from django.contrib.sites.models import get_current_site
         from django.test import Client
-        from django.conf import settings
         from django.contrib.sitemaps.views import sitemap
-        from django.test import RequestFactory
 
         def walk_sitemap(urlset, doc):
             """

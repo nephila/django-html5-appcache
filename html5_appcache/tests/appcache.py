@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.core.management import call_command
-from django.conf import  settings
-from html5_appcache import appcache_registry
+from django.conf import settings
 
+from html5_appcache import appcache_registry
 from html5_appcache.cache import *
 from html5_appcache.test_utils.base import BaseDataTestCase
 from html5_appcache.test_utils.testapp.models import News
@@ -69,6 +69,12 @@ class UpdateCommandTestCase(BaseDataTestCase):
     def tearDown(self):
         clear_cache_manifest()
         super(UpdateCommandTestCase, self).tearDown()
+
+    def test_clear_command(self):
+        set_cached_manifest("dummy")
+        call_command("clear_manifest")
+        manifest = get_cached_manifest()
+        self.assertIsNone(manifest)
 
     def test_update_command(self):
         lang = "/" + settings.LANGUAGE_CODE

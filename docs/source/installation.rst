@@ -16,9 +16,21 @@ Installation
 
 To get started using ``django-html5-appcache`` install it with ``pip``::
 
+    $ pip install django-html5-appcache
+
+If you want to use the development version install from github::
+
     $ pip install git+https://github.com/nephila/django-html5-appcache.git#egg=django-html5-appcache
 
 Requirements will be automatically installed.
+
+Run migrate command to sync your database::
+
+    $ python manage.py migrate html5_appcache
+
+.. warning::
+    Migrations have been added in 0.3.0. Don't skip this if you are upgrading from
+    0.2.
 
 Basic configuration
 --------------------
@@ -58,6 +70,8 @@ Basic configuration
 
 * Enable the cache for your project. Refer to Django :django:setting:`CACHES`
   configuration.
+
+.. _djangocms-integration:
 
 django CMS integration
 ----------------------

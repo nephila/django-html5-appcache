@@ -1,2 +1,5 @@
 django-cms<2.5
+django-filer
+cmsplugin_filer
+pillow
 -r django-1.4.txt

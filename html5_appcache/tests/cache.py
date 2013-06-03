@@ -19,7 +19,7 @@ class CacheTest(TransactionTestCase):
         self.assertEqual(get_cache_version(), 1)
         self.assertEqual(get_cached_manifest(), "ciao")
         reset_cache_manifest()
-        set_cached_value("nociao",1)
+        set_cached_value("nociao", 1)
         self.assertEqual(get_cached_manifest(), "ciao")
         self.assertEqual(get_cache_version(), 2)
 
