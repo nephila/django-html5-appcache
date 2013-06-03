@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 import os.path
 
 from django.conf import settings
@@ -21,6 +22,10 @@ class ManifestAppCache(TemplateView):
     appcache_update = 0
 
     def get(self, request, *args, **kwargs):
+        empty_manifest = render_to_string(self.template_name, dictionary={
+            'version': 0, 'date': '-', 'network_urls': ['*']
+        })
+        manifest = None
         if not get_setting("DISABLE"):
             appcache_registry.setup(request, self.template_name)
             if kwargs.get("appcache_update", False):
@@ -30,23 +35,27 @@ class ManifestAppCache(TemplateView):
                     return HttpResponseForbidden(_("Current user is not authorized for this action"))
             else:
                 manifest = appcache_registry.get_manifest()
-        else:
-            manifest = render_to_string(self.template_name, dictionary={
-                'version': 0, 'date': '-', 'network_urls': ['*']
-            })
+        if not manifest:
+            manifest = empty_manifest
         return HttpResponse(content=manifest, content_type="text/cache-manifest")
 
 
 class ManifestUpdateView(ManifestAppCache):
     def get(self, request, *args, **kwargs):
         appcache_registry.setup(request, self.template_name)
-        print kwargs, args, request
         if request.is_ajax():
             if request.user.is_authenticated() and request.user.has_perm('html5_appcache.can_update_manifest'):
                 manifest = appcache_registry.get_manifest(update=True)
-                return HttpResponse(content="OK", content_type="text/plain")
+                content = {
+                    'text': "OK",
+                    'success': True
+                }
             else:
-                return HttpResponseForbidden(_("Current user is not authorized for this action"))
+                content = {
+                    'text': unicode(_("Current user is not authorized for this action")),
+                    'success': False
+                }
+            return HttpResponse(content=json.dumps(content), content_type="text/plain")
         return HttpResponseBadRequest(_("Method not allowed for this view"))
 
 

@@ -30,25 +30,29 @@ class ManifestViewTest(BaseDataTestCase):
 
     def test_update_manifest_view_noauth(self):
         request = self.get_request('/')
+        request.META['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
         view = ManifestUpdateView.as_view()
         response = view(request, appcache_update=1)
-        self.assertEqual(response.status_code, 403)
+        self.assertTrue(response.content.find('"success": false') > -1)
 
     def test_update_manifest_staff(self):
         self.user.user_permissions.add(self.manifest_perm)
         request = self.get_request('/', user=self.user)
+        request.META['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
         view = ManifestUpdateView.as_view()
         response = view(request, appcache_update=1)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.content, "OK")
+        self.assertTrue(response.content.find("OK") > -1)
         self.user.user_permissions.remove(self.manifest_perm)
 
         request = self.get_request('/', user=self.user)
+        request.META['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
         view = ManifestUpdateView.as_view()
         response = view(request, appcache_update=1)
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.content.find('"success": false') > -1)
 
-    def test_update_manifest_wrong_method(self):
+    def test_update_manifest_no_ajax(self):
         self.user.user_permissions.add(self.manifest_perm)
         request = self.get_request('/', user=self.user)
         view = ManifestUpdateView.as_view()

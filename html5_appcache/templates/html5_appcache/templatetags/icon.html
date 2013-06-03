@@ -8,11 +8,15 @@
             $icon = $("img", $(this));
             event.preventDefault();
             var timestamp = new Date().getTime();
-            $.get(cache_update_url,
+            $.getJSON(cache_update_url,
                     function(data, textStatus, jqXHR){
-                        alert('{% trans 'Manifest updated' %}');
-                        console.log(data);
-                        $icon.attr("src", $icon.attr("src")+"?"+timestamp);
+                        if(data['success']) {
+                            alert('{% trans 'Manifest updated' %}');
+                            $icon.attr("src", $icon.attr("src")+"?"+timestamp);
+                        }
+                        else {
+                            alert(data['text']);
+                        }
                     }
             )
         });
