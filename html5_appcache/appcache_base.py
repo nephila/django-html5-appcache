@@ -27,6 +27,8 @@ class BaseAppCache(object):
     def _add_language(self, request, urls):
         """ For django CMS 2.3 we need to manually add language code to the
         urls returned by the appcache classes
+
+        :return: list of urls
         """
         if DJANGOCMS_2_3:
             new_urls = []
@@ -41,46 +43,74 @@ class BaseAppCache(object):
 
     def _get_assets(self, request):
         """
-        Redefine this method to customize asset (images, files, javascripts,
+        override this method to customize asset (images, files, javascripts,
         stylesheets) urls.
+
+        :return: list of urls
         """
         return []
 
     def _get_urls(self, request):
         """
-        Redefine this method to define cached urls.
+        override this method to define cached urls.
 
         If you use a sitemap-enabled application, it's not normally necessary.
+
+        :return: list of urls
         """
         return []
 
     def _get_network(self, request):
         """
-        Redefine this method to define network (non-cached) urls.
+        override this method to define network (non-cached) urls.
+
+        :return: list of urls
         """
         return []
 
     def _get_fallback(self, request):
         """
-        Redefine this method to define fallback urls.
+        override this method to define fallback urls.
+
+        :return: dictionary mapping original urls to fallback
         """
         return {}
 
     def get_assets(self, request):
+        """
+        Public method that return assets urls. Do not override, use :py:meth:`_get_assets`
+
+        :return: list of urls
+        """
         return self._add_language(request, self._get_assets(request))
 
     def get_urls(self, request):
+        """
+        Public method that return cached urls. Do not override, use :py:meth:`_get_urls`
+
+        :return: list of urls
+        """
         return self._add_language(request, self._get_urls(request))
 
     def get_network(self, request):
+        """
+        Public method that return network (non-cached) urls. Do not override, use :py:meth:`_get_network`
+
+        :return: list of urls
+        """
         return self._add_language(request, self._get_network(request))
 
     def get_fallback(self, request):
+        """
+        Public method that return fallback urls. Do not override, use :py:meth:`_get_fallback`
+
+        :return: dictionary mapping original urls to fallback
+        """
         return self._get_fallback(request)
 
     def signal_connector(self, instance, **kwargs):
         """
-        You **must** redefine this method in you ``AppCache`` class.
+        You **must** override this method in you ``AppCache`` class.
         """
         return NotImplementedError("signal_connector must be implemented for appcache to work")
 

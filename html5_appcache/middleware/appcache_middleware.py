@@ -7,12 +7,17 @@ class AppCacheAssetsFromResponse(object):
     """
     Extracts appcache assets from the rendered template.
 
-    It supports custom attributes to opt-in / opt-out assets.
-
     Currently supports the following tags:
-    * img: extracts the data in the ``src`` attribute
-    * script: extracts the data in the ``src`` attribute
-    * link: extracts the data in the ``href`` attribute if ``rel==stylesheet``
+     * img: extracts the data in the ``src`` attribute
+     * script: extracts the data in the ``src`` attribute
+     * link: extracts the data in the ``href`` attribute if ``rel==stylesheet``
+
+    It supports custom data-attribute to exclude assets from caching:
+     * `data-appcache='noappcache'`: the referenced url is added to the NETWORK
+       section
+     * `data-appcache-fallback=URL`: the referenced url is added in the
+       FALLBACK section, with *URL* as a target
+
     """
     _cached = set()
     _network = set()

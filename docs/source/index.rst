@@ -40,6 +40,19 @@ Usage
 
    concepts.rst
    appcache.rst
+   djangocms.rst
+   excluding.rst
    web.rst
    cli.rst
 
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
+.. toctree::
+   :maxdepth: 1
+
+   autodoc.rst

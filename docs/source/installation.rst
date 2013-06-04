@@ -71,17 +71,8 @@ Basic configuration
 * Enable the cache for your project. Refer to Django :django:setting:`CACHES`
   configuration.
 
-.. _djangocms-integration:
 
 django CMS integration
 ----------------------
 
-``django-html5-appcache`` supports django CMS out-of-the-box.
-To enable, add the following to ``INSTALLED_APPS``:
-
-* ``html5_appcache.packages.cms``
-* ``html5_appcache.packages.filer`` (if you use ``django-filer``)
-* ``html5_appcache.packages.cmsplugin_filer`` (if you use ``cmsplugin_filer``)
-
-django CMS integration delivers support for all the the default plugins; to enable
-your own plugins see :ref:`djangocms-plugins` section in :ref:`appcache`.
+See :ref:`django CMS installation <djangocms-installation>`.
