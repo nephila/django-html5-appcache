@@ -3,7 +3,7 @@
 Changelog
 *********
 
-0.3.0 (unreleased)
+0.3.0 (2013-06-06)
 ------------------
 .. warning::
     0.3.0 introduces migrations. Run ``migrate html5_appcache`` on upgrade

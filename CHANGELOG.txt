@@ -6,7 +6,7 @@
 
  - Fixes issues with Google Chrome
 
-==== 0.3.0 (2013-06-03) ====
+==== 0.3.0 (2013-06-06) ====
 
  - Templatetag added to display cache status
  - More tests
