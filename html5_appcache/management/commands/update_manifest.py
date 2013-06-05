@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sys
 from django.core.management.base import BaseCommand
 from django.test import RequestFactory, Client
 from django.test.utils import override_settings
@@ -10,13 +11,23 @@ from html5_appcache.utils import is_external_url
 
 
 class Command(BaseCommand):
-    help = 'Update appcache manifest loading all the pages from the sitemap. Manifest is loaded in the cache.'
+    """
+    This command update the manifest in the cache.
+
+    * It loads the declared urls (using sitemap or appcache classes)
+    * Explores the above urls scanning for assets.
+
+    When using django CMS you must set ``HTML5_APPCACHE_OVERRIDDE_URLCONF=True``
+    to enable using the static urlconf.
+    """
+    help = 'Update appcache manifest loading all the pages from the sitemap.' \
+           'Manifest is loaded in the cache.'
     language = None
 
     def handle(self, *args, **options):
         self.language = "en"
         request = RequestFactory().get('/')
-        request.LANGUAGE_CODE=self.language
+        request.LANGUAGE_CODE = self.language
         appcache_registry.setup(request, "html5_appcache/manifest")
         if get_setting("OVERRIDE_URLCONF"):
             return self.get_overridden_urls()
@@ -31,7 +42,8 @@ class Command(BaseCommand):
             elif response.status_code == 302:
                 self.get_url(client, response['Location'])
             else:
-                print "Unrecognized code %s for %s" % (response.status_code, url)
+                sys.stdout.write("Unrecognized code %s for %s\n" % (
+                    response.status_code, url))
 
     def get_urls(self):
         clear_cache_manifest()
@@ -39,7 +51,7 @@ class Command(BaseCommand):
         urls = appcache_registry.get_urls()
         for url in urls:
             self.get_url(client, url)
-        manifest = appcache_registry.get_manifest(update=True)
+        appcache_registry.get_manifest(update=True)
 
     @override_settings(HTML5_APPCACHE_OVERRIDDEN_URLCONF=True)
     def get_overridden_urls(self):

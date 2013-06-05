@@ -79,25 +79,7 @@ file, you can add methods to the basic ``AppCache`` class above::
 
 ``request`` object is passed for convenience
 
-.. _djangocms-plugins:
-
 django CMS plugins
 ------------------
 
-To enable cache invalidation for your own plugins, you must create an ``AppCache``
-class for your plugin models too.
-
-Support for the standard django CMS plugin is already included (see: :ref:`djangocms-integration`)
-
-The example below is the implementation of an appcache for django CMS text plugin::
-
-    from html5_appcache import appcache_registry
-    from html5_appcache.appcache_base import BaseAppCache
-    from cms.plugins.text.models import Text
-
-    class CmsTextAppCache(BaseAppCache):
-        models = (Text, )
-
-        def signal_connector(self, instance, **kwargs):
-            self.manager.reset_manifest()
-    appcache_registry.register(CmsTextAppCache())
+See :ref:`djangocms-plugins`.

@@ -22,7 +22,7 @@ the cache to serve it with no performance impact.
 The manifest file is generated out-of-band using a
 :ref:`django command <command-cli>` so you can execute the command manually or in
 a cron job.
-Since 0.3.0 a view is provided, see :ref:`web_ui`_
+Since 0.3.0 a view is provided, see :ref:`web_ui`
 
 Cache invalidation
 ------------------
@@ -43,7 +43,16 @@ the web application.
 This is a two steps process:
 
 1. get the sitemap and extract the urls declared
-2. visit each url and extract the asset urls
+2. scrape each url and extract the asset urls
+
+In the scraping phase, the actual HTML of each page is generated and analyed.
+
+Currently ``django-html5-appcache`` extracts data from ``img``, ``script`` and
+``link`` tags. See :py:class:`AppCacheAssetsFromResponse <html5_appcache.middleware.appcache_middleware.AppCacheAssetsFromResponse>`
+for more in depth details.
+
+See :ref:`markup-customization` on how to customize the assets extraction in your
+markup.
 
 Customizing urls
 ################

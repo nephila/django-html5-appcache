@@ -5,6 +5,9 @@ from django.contrib.contenttypes.models import ContentType
 
 
 class GlobalPermissionManager(models.Manager):
+    """ Manager for GlobalPermission. Filter the queryset usign the appropriate
+    content type
+    """
     def get_query_set(self):
         return (super(GlobalPermissionManager, self).
                 get_query_set().filter(content_type__name='global_permission'))
@@ -19,6 +22,8 @@ class GlobalPermission(Permission):
         proxy = True
 
     def save(self, *args, **kwargs):
+        """ Sets the proper content_type on instance creatin
+        """
         ct, created = ContentType.objects.get_or_create(
             name="global_permission", app_label=self._meta.app_label
         )
