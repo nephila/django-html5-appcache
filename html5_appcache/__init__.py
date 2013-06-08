@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from html5_appcache.appcache_base import AppCacheManager
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 appcache_registry = AppCacheManager()
 

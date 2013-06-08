@@ -159,6 +159,7 @@ class AppCacheManager(object):
         Setup is required wen updating the manifest file
         """
         self.request = request
+        self.language = getattr(self.request, 'LANGUAGE_CODE', "").split("-")[0]
         self._network = set()
         self._cached = set()
         self._fallback = {}
@@ -272,21 +273,45 @@ class AppCacheManager(object):
         req_protocol = 'https' if self.request.is_secure() else 'http'
         req_site = get_current_site(self.request)
         client = Client()
-        language = getattr(self.request, 'LANGUAGE_CODE', "").split("-")[0]
         path = get_setting('SITEMAP_URL')
         if DJANGO_1_4 and not DJANGOCMS_2_3:
-            path = "/%s%s" % (language, get_setting('SITEMAP_URL'))
-        sitemap = client.get(path, follow=True, LANGUAGE_CODE=language)
+            path = "/%s%s" % (self.language, get_setting('SITEMAP_URL'))
+        sitemap = client.get(path, follow=True, LANGUAGE_CODE=self.language)
         local_urls = []
         lxdoc = document_fromstring(sitemap.content)
         walk_sitemap(local_urls, lxdoc)
         if get_setting('DJANGOCMS_2_3'):
-            lang_fix = "/" + language
+            lang_fix = "/" + self.language
         else:
             lang_fix = ""
         return map(lambda x: string.replace(
             x,"%s://%s" % (req_protocol, req_site), lang_fix),
                    local_urls)
+
+    def _fetch_url(self, client, url):
+        """
+        Scrape a single URL and fetches assets
+        """
+        if not is_external_url(url):
+            response = client.get(url, data={"appcache_analyze":1}, LANGUAGE_CODE=self.language)
+            if response.status_code == 200:
+                self.add_appcache(response.appcache)
+            elif response.status_code == 302:
+                self._fetch_url(client, response['Location'])
+            else:
+                print("Unrecognized code %s for %s\n" % (
+                    response.status_code, url))
+
+    def extract_urls(self):
+        """
+        Run through the cached urls and fetches assets by scraping the pages
+        """
+        from django.test import Client
+        client = Client()
+        urls = self.get_urls()
+        for starting_url in urls:
+            self._fetch_url(client, starting_url)
+
 
     def get_manifest(self, update=False):
         """
