@@ -12,3 +12,6 @@
  - More tests
  - Added security check for sensitive views
 
+==== 0.3.1 (2013-06-08) ====
+
+ - Fix view-generated manifest
