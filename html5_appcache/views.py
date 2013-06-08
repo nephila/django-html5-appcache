@@ -31,6 +31,7 @@ class ManifestAppCache(TemplateView):
             if kwargs.get("appcache_update", False):
                 if (request.user.is_authenticated() and
                         request.user.has_perm('html5_appcache.can_update_manifest')):
+                    appcache_registry.extract_urls()
                     manifest = appcache_registry.get_manifest(update=True)
                 else:
                     return HttpResponseForbidden(
@@ -48,6 +49,7 @@ class ManifestUpdateView(ManifestAppCache):
         if request.is_ajax():
             if (request.user.is_authenticated() and
                     request.user.has_perm('html5_appcache.can_update_manifest')):
+                appcache_registry.extract_urls()
                 appcache_registry.get_manifest(update=True)
                 content = {
                     'text': "OK",
