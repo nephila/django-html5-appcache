@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import re
+from django.core.management import call_command
 
-from html5_appcache.cache import reset_cache_manifest
+from html5_appcache.cache import reset_cache_manifest, get_cached_manifest
 from html5_appcache.models import GlobalPermission
 from html5_appcache.test_utils.base import BaseDataTestCase
 from html5_appcache.views import ManifestAppCache, CacheStatusView, ManifestUpdateView
@@ -26,6 +27,16 @@ class ManifestViewTest(BaseDataTestCase):
         response = view(request, appcache_update=1)
         version2 = self.version_rx.findall(response.content)
         self.assertNotEqual(version, version2)
+
+    def test_command_view_equivalent(self):
+        request = self.get_request('/', user=self.admin)
+        view = ManifestAppCache.as_view()
+        response = view(request, appcache_update=1)
+        manifest_view = re.sub("# (date|version).+", "", response.content)
+        reset_cache_manifest()
+        call_command("update_manifest")
+        manifest_command = re.sub("# (date|version).+", "", get_cached_manifest())
+        self.assertEqual(manifest_command, manifest_view)
 
     def test_update_manifest_view_noauth(self):
         request = self.get_request('/')

@@ -34,23 +34,9 @@ class Command(BaseCommand):
         else:
             return self.get_urls()
 
-    def get_url(self, client, url):
-        if not is_external_url(url):
-            response = client.get(url, data={"appcache_analyze":1}, LANGUAGE_CODE=self.language)
-            if response.status_code == 200:
-                appcache_registry.add_appcache(response.appcache)
-            elif response.status_code == 302:
-                self.get_url(client, response['Location'])
-            else:
-                sys.stdout.write("Unrecognized code %s for %s\n" % (
-                    response.status_code, url))
-
     def get_urls(self):
         clear_cache_manifest()
-        client = Client()
-        urls = appcache_registry.get_urls()
-        for url in urls:
-            self.get_url(client, url)
+        appcache_registry.extract_urls()
         appcache_registry.get_manifest(update=True)
 
     @override_settings(HTML5_APPCACHE_OVERRIDDEN_URLCONF=True)
