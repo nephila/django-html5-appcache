@@ -41,7 +41,7 @@ Usage
    concepts.rst
    appcache.rst
    djangocms.rst
-   excluding.rst
+   url_management.rst
    web.rst
    cli.rst
 

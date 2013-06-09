@@ -3,6 +3,11 @@
 Changelog
 *********
 
+0.3.2 (unreleased)
+------------------
+
+* Add data-appcache optin parameter
+
 0.3.1 (2013-06-08)
 ------------------
 
