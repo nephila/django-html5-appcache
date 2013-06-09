@@ -7,6 +7,8 @@ Changelog
 ------------------
 
 * Add data-appcache optin parameter
+* Add HTML5_APPCACHE_EXCLUDE_URL setting
+* Fix HTML5_APPCACHE_NETWORK_URL and HTML5_APPCACHE_FALLBACK_URL settings
 
 0.3.1 (2013-06-08)
 ------------------

@@ -71,13 +71,32 @@ by django or not linked to any page).
 
 *Default*: ``[]``
 
+.. setting:: HTML5_APPCACHE_EXCLUDE_URL
+
+HTML5_APPCACHE_EXCLUDE_URL
+==========================
+
+You can exclude specific url from being cached by using this parameter.
+Contrary to :setting:`HTML5_APPCACHE_NETWORK_URL` URLs will be excluded by
+cached urls but are **not** set in the **NETWORK** section of the manifest.
+This way you can mask out *private* URLs or URLs that are not meant to be known.
+
+.. warning::
+    This is **not** a security feature. *Security through obscurity* is broken
+    by design. This parameter is intended only to have a cleaner and more concise
+    manifest.
+
+.. versionadded:: 0.3.2
+
+*Default*: ``[]``
+
 .. setting:: HTML5_APPCACHE_NETWORK_URL
 
 HTML5_APPCACHE_NETWORK_URL
 ==========================
 
 You can exclude specific url from being cached by using this parameter.
-Urls will be excluded by cached urls and set in the **NETWORK** section of the manifest.
+URLs will be excluded by cached urls and set in the **NETWORK** section of the manifest.
 
 *Default*: ``[]``
 
