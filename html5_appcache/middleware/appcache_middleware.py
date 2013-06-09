@@ -15,6 +15,8 @@ class AppCacheAssetsFromResponse(object):
     It supports custom data-attribute to exclude assets from caching:
      * `data-appcache='noappcache'`: the referenced url is added to the NETWORK
        section
+     * `data-appcache='appcache'`: the referenced url is added to the CACHE
+       section
      * `data-appcache-fallback=URL`: the referenced url is added in the
        FALLBACK section, with *URL* as a target
 
@@ -59,6 +61,14 @@ class AppCacheAssetsFromResponse(object):
             else:
                 self._cached.add(attrib['href'])
 
+    def handle_a(self, tag, attrib):
+        """
+        Extract assets from the a tag (only for opt-in link)
+        """
+        if ('href' in attrib and 'data-appcache' in attrib and
+            attrib['data-appcache'] == 'appcache'):
+                self._cached.add(attrib['href'])
+
     def walk_tree(self, tree):
         """
         Walk the DOM tree
@@ -71,6 +81,8 @@ class AppCacheAssetsFromResponse(object):
                 self.handle_script(tag.localname, tree.attrib)
             if tag.localname == "link":
                 self.handle_link(tag.localname, tree.attrib)
+            if tag.localname == "a":
+                self.handle_a(tag.localname, tree.attrib)
             for node in tree:
                 self.walk_tree(node)
 
