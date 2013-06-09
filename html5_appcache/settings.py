@@ -29,6 +29,7 @@ def get_setting(key):
         'DISCARD_EXTERNAL': getattr(settings, "HTML5_APPCACHE_DISCARD_EXTERNAL", True),
         'SITEMAP_URL': getattr(settings, "HTML5_APPCACHE_SITEMAP_URL", "/sitemap.xml"),
         'CACHED_URL': getattr(settings, "HTML5_APPCACHE_CACHED_URL", []),
+        'EXCLUDE_URL': getattr(settings, "HTML5_APPCACHE_EXCLUDE_URL", []),
         'NETWORK_URL': getattr(settings, "HTML5_APPCACHE_NETWORK_URL", []),
         'FALLBACK_URL': getattr(settings, "HTML5_APPCACHE_FALLBACK_URL", {}),
         'OVERRIDE_URLCONF': getattr(settings, "HTML5_APPCACHE_OVERRIDE_URLCONF", False),
