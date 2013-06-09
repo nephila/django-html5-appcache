@@ -84,7 +84,9 @@ class UpdateCommandTestCase(BaseDataTestCase):
 %s/list/
 /some/url/css/stile.css
 /static/img/icon1.png
+/static/img/icon1_big.png
 /static/img/icon2.png
+/static/img/icon2_big.png
 """ % (lang, lang, lang)
         t_network = """NETWORK:
 *
@@ -98,7 +100,7 @@ http://www.example.com/static/img/icon2.png /static/img/fallback.png
 """
         call_command("update_manifest")
         manifest = get_cached_manifest()
-        self.assertTrue(manifest.find("CACHE MANIFEST")>-1)
-        self.assertTrue(manifest.find(t_cache)>-1)
-        self.assertTrue(manifest.find(t_network)>-1)
-        self.assertTrue(manifest.find(t_fallback)>-1)
+        self.assertTrue(manifest.find("CACHE MANIFEST") > -1)
+        self.assertTrue(manifest.find(t_cache) > -1)
+        self.assertTrue(manifest.find(t_network) > -1)
+        self.assertTrue(manifest.find(t_fallback) > -1)
