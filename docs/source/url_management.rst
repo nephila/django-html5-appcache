@@ -13,10 +13,11 @@ of the manifest file to meet as many usecases as possible.
 Configuration
 -------------
 
-To include urls in the manifest, use :setting:`HTML5_APPCACHE_CACHED_URL`.
+To include urls in the manifest, use :setting:`HTML5_APPCACHE_CACHED_URL`,
+to exclude them use :setting:`HTML5_APPCACHE_EXCLUDE_URL`.
 
-To exclude them or add to the fallback section, use :setting:`HTML5_APPCACHE_NETWORK_URL` and
-:setting:`HTML5_APPCACHE_NETWORK_URL`.
+To insert a URL in **NETWORK** see :setting:`HTML5_APPCACHE_NETWORK_URL`; for
+**FALLBACK** see :setting:`HTML5_APPCACHE_FALLBACK_URL`.
 
 
 AppCache class
