@@ -9,13 +9,9 @@ Command line usage
 update_manifest
 ===============
 
-``update_manifest`` is the command to update the manifest cache.
-
-Run::
+``update_manifest`` updates the manifest cache::
 
     $ python manage.py update_manifest
-
-and your manifest file will be updated.
 
 
 clear_manifest
