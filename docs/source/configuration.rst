@@ -86,7 +86,7 @@ This way you can mask out *private* URLs or URLs that are not meant to be known.
     by design. This parameter is intended only to have a cleaner and more concise
     manifest.
 
-.. versionadded:: 0.3.2
+.. versionadded:: 0.4
 
 *Default*: ``[]``
 
