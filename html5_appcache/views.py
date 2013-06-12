@@ -20,6 +20,16 @@ class ManifestAppCache(TemplateView):
     """
     template_name = "html5_appcache/manifest"
     appcache_update = 0
+    force_empty_manifest = False
+
+    def _do_update(self, request, appcache_registry):
+        """ Actual update function """
+        if (request.user.is_authenticated() and
+                request.user.has_perm('html5_appcache.can_update_manifest')):
+            appcache_registry.extract_urls()
+            return appcache_registry.get_manifest(update=True)
+        else:
+            return None
 
     def get(self, request, *args, **kwargs):
         empty_manifest = render_to_string(self.template_name, dictionary={
@@ -28,29 +38,28 @@ class ManifestAppCache(TemplateView):
         manifest = None
         if not get_setting("DISABLE"):
             appcache_registry.setup(request, self.template_name)
-            if kwargs.get("appcache_update", False):
-                if (request.user.is_authenticated() and
-                        request.user.has_perm('html5_appcache.can_update_manifest')):
-                    appcache_registry.extract_urls()
-                    manifest = appcache_registry.get_manifest(update=True)
-                else:
+            if self.appcache_update:
+                manifest = self._do_update(request, appcache_registry)
+                if not manifest:
                     return HttpResponseForbidden(
                         _("Current user is not authorized for this action"))
             else:
                 manifest = appcache_registry.get_manifest()
-        if not manifest:
+        if manifest and request.user.is_authenticated():
+            manifest += "\n# version %s" % "auth"
+
+        if (not manifest or self.force_empty_manifest or
+                kwargs.get("parameter", False) == 'empty'):
             manifest = empty_manifest
         return HttpResponse(content=manifest, content_type="text/cache-manifest")
 
 
 class ManifestUpdateView(ManifestAppCache):
     def get(self, request, *args, **kwargs):
-        appcache_registry.setup(request, self.template_name)
         if request.is_ajax():
-            if (request.user.is_authenticated() and
-                    request.user.has_perm('html5_appcache.can_update_manifest')):
-                appcache_registry.extract_urls()
-                appcache_registry.get_manifest(update=True)
+            appcache_registry.setup(request, self.template_name)
+            manifest = self._do_update(request, appcache_registry)
+            if manifest:
                 content = {
                     'text': "OK",
                     'success': True

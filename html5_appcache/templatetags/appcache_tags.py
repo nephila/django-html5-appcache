@@ -9,22 +9,34 @@ register = template.Library()
 
 def appcache_link(parser, token):
     """
-    Add the correct attribute to th ``<html>`` tag
+    Add the correct attribute to the ``<html>`` tag
     """
-    return AppCacheNode()
+    parameter = None
+    try:
+        # split_contents() knows not to split quoted strings.
+        tag_name, parameter = token.split_contents()
+    except ValueError, e:
+        # argument is optional
+        pass
+    return AppCacheNode(parameter)
 
 
 class AppCacheNode(template.Node):
     """ Templatetag Node class """
-    def __init__(self):
-        pass
+    parameter = None
+    def __init__(self, parameter):
+        self.parameter = parameter
 
     def render(self, context):
         from html5_appcache.settings import get_setting
         if get_setting("DISABLE"):
             return ""
         else:
-            return mark_safe('manifest="%s"' % reverse('appcache_manifest'))
+            if self.parameter:
+                return mark_safe('manifest="%s"' % reverse('appcache_manifest',
+                                                           kwargs={'parameter': self.parameter}))
+            else:
+                return mark_safe('manifest="%s"' % reverse('appcache_manifest'))
 register.tag('appcache_link', appcache_link)
 
 

@@ -216,7 +216,6 @@ class AppCacheManager(object):
                 self._cached = filter(lambda url: not is_external_url(
                     url, self.request), self._cached)
             if get_setting('EXCLUDE_URL'):
-                print get_setting('EXCLUDE_URL')
                 new = set()
                 for url in self._cached:
                     if not any(url.startswith(excluded) for excluded in get_setting('EXCLUDE_URL')):
