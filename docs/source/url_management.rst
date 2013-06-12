@@ -1,6 +1,6 @@
-**************************************
-Managing urls presence in the manifest
-**************************************
+*****************************
+Managing urls in the manifest
+*****************************
 
 Sometimes you don't want urls to be cached for various reasons (they can pull
 content from external sites with no way to invalidate the local cache, or
