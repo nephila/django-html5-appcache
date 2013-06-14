@@ -50,6 +50,8 @@ in your tags.
 For each ``img``, ``script`` and ``link`` tag, you can add data-attributes to
 control how each referenced url is considered:
 
-* `data-appcache='appcache'`: the referenced url is added to the CACHEe section
-* `data-appcache='noappcache'`: the referenced url is added to the NETWORK section
-* `data-appcache-fallback=URL`: the referenced url is added in the FALLBACK section, with *URL* as a target
+* ``data-appcache='appcache'``: the referenced url is added to the CACHE section
+* ``data-appcache='noappcache'``: the referenced url is added to the NETWORK
+  section
+* ``data-appcache-fallback=URL``: the referenced url is added in the FALLBACK
+  section, with *URL* as a target
