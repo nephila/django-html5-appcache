@@ -5,7 +5,7 @@ Basic Concepts
 **************
 
 ``django-html5-appcache`` leverages django ``cache``, ``test`` and ``signals``
-frameworks to explore project pages and assets and generate an appcache manifest
+frameworks to browse project urls and assets and generate an appcache manifest
 file.
 
 Manifest file generation
