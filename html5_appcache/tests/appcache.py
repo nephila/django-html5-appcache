@@ -64,6 +64,33 @@ class AppcacheTestCase(BaseDataTestCase):
         news3.delete()
         self.assertFalse(is_manifest_clean())
 
+    def test_context_exclude(self):
+        with self.settings(HTML5_APPCACHE_USE_SITEMAP=False,
+                           HTML5_APPCACHE_EXCLUDE_URL=['/en/list/']):
+            request = self.get_request('/')
+            appcache_registry.setup(request, "")
+            urls = appcache_registry.get_cached_urls()
+            self.assertEqual(len(urls), 2)
+            self.assertNotIn('/en/list/', urls)
+
+    def test_context_network(self):
+        with self.settings(HTML5_APPCACHE_USE_SITEMAP=False,
+                           HTML5_APPCACHE_NETWORK_URL=['/en/list/']):
+            request = self.get_request('/')
+            appcache_registry.setup(request, "")
+            urls = appcache_registry.get_network_urls()
+            self.assertEqual(len(urls), 4)
+            self.assertIn('/en/list/', urls)
+
+    def test_context_fallback(self):
+        with self.settings(HTML5_APPCACHE_USE_SITEMAP=False,
+                           HTML5_APPCACHE_FALLBACK_URL={'/en/list/': '/other/'}):
+            request = self.get_request('/')
+            appcache_registry.setup(request, "")
+            urls = appcache_registry.get_fallback_urls()
+            self.assertEqual(len(urls), 1)
+            self.assertEqual(urls['/en/list/'], '/other/')
+
 class UpdateCommandTestCase(BaseDataTestCase):
 
     def tearDown(self):
@@ -84,7 +111,9 @@ class UpdateCommandTestCase(BaseDataTestCase):
 %s/list/
 /some/url/css/stile.css
 /static/img/icon1.png
+/static/img/icon1_big.png
 /static/img/icon2.png
+/static/img/icon2_big.png
 """ % (lang, lang, lang)
         t_network = """NETWORK:
 *
@@ -98,7 +127,7 @@ http://www.example.com/static/img/icon2.png /static/img/fallback.png
 """
         call_command("update_manifest")
         manifest = get_cached_manifest()
-        self.assertTrue(manifest.find("CACHE MANIFEST")>-1)
-        self.assertTrue(manifest.find(t_cache)>-1)
-        self.assertTrue(manifest.find(t_network)>-1)
-        self.assertTrue(manifest.find(t_fallback)>-1)
+        self.assertTrue(manifest.find("CACHE MANIFEST") > -1)
+        self.assertTrue(manifest.find(t_cache) > -1)
+        self.assertTrue(manifest.find(t_network) > -1)
+        self.assertTrue(manifest.find(t_fallback) > -1)

@@ -20,9 +20,13 @@ class News(models.Model):
         return "/static/img/icon%s.png" % self.pk
 
     @property
+    def icon_big(self):
+        return "/static/img/icon%s_big.png" % self.pk
+
+    @property
     def ext_assett(self):
         return "http://www.example.com/static/img/icon%s.png" % self.pk
 
     @property
     def photo(self):
-        return "/media/img/icon%s.png" % self.pk
+        return "/media/img/photo%s.png" % self.pk

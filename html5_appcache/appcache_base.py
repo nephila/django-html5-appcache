@@ -164,7 +164,7 @@ class AppCacheManager(object):
         self._cached = set()
         self._fallback = {}
         self._template = template
-        self._external_appcaches = {'cached':[], 'network':[], 'fallback':{}}
+        self._external_appcaches = {'cached': [], 'network': [], 'fallback': {}}
         self.context = {}
 
     def get_version_timestamp(self):
@@ -211,10 +211,17 @@ class AppCacheManager(object):
             for appcache in self.registry:
                 self._cached.update(appcache.get_assets(self.request))
             self._cached.update(self._external_appcaches['cached'])
-        self._cached.difference_update(self.get_network_urls())
-        if get_setting('DISCARD_EXTERNAL'):
-            self._cached = filter(lambda url: not is_external_url(url, self.request),
-                                  self._cached)
+            self._cached.difference_update(self.get_network_urls())
+            if get_setting('DISCARD_EXTERNAL'):
+                self._cached = filter(lambda url: not is_external_url(
+                    url, self.request), self._cached)
+            if get_setting('EXCLUDE_URL'):
+                print get_setting('EXCLUDE_URL')
+                new = set()
+                for url in self._cached:
+                    if not any(url.startswith(excluded) for excluded in get_setting('EXCLUDE_URL')):
+                        new.add(url)
+                self._cached = new
         return self._cached
 
     def get_network_urls(self):
@@ -227,6 +234,7 @@ class AppCacheManager(object):
             for appcache in self.registry:
                 self._network.update(appcache.get_network(self.request))
             self._network.update(self._external_appcaches['network'])
+            self._network.update(get_setting('NETWORK_URL'))
         if get_setting("ADD_WILDCARD"):
             self._network.update(("*",))
         return self._network
@@ -239,6 +247,7 @@ class AppCacheManager(object):
             for appcache in self.registry:
                 self._fallback.update(appcache.get_fallback(self.request))
             self._fallback.update(self._external_appcaches['fallback'])
+            self._fallback.update(get_setting('FALLBACK_URL'))
         return self._fallback
 
     def add_appcache(self, appcache):
