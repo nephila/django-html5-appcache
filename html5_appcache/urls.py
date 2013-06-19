@@ -9,6 +9,12 @@ urlpatterns = patterns('',
     url("^manifest.appcache$",
         never_cache(ManifestAppCache.as_view()),
         name="appcache_manifest"),
+    url("^manifest/empty.appcache$",
+        never_cache(ManifestAppCache.as_view(force_empty_manifest=1)),
+        name="appcache_manifest_empty"),
+    url("^manifest/(?P<parameter>\w+).appcache$",
+        never_cache(ManifestAppCache.as_view()),
+        name="appcache_manifest"),
     #This views is used when updating the manifest. ``appcache_update`` parameter
     #triggers the middleware
     url("^manifest.appcache/appcache_update/$",
