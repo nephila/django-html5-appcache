@@ -5,7 +5,7 @@ Basic Concepts
 **************
 
 ``django-html5-appcache`` leverages django ``cache``, ``test`` and ``signals``
-frameworks to explore project pages and assets and generate an appcache manifest
+frameworks to browse project urls and assets and generate an appcache manifest
 file.
 
 Manifest file generation
@@ -15,12 +15,12 @@ The manifest file is generated collecting all the cached urls and exploring them
 using the test client to extract asset urls and including them in the manifest
 itself.
 
-This can be quite resource intensive, so the manifest file is saved in the cache;
-the view that actually delivers the file manifest to the browser can thus use
-the cache to serve it with no performance impact.
+As this can be quite resource intensive, the manifest file is saved in the project
+cache; the view that actually delivers the file manifest to the browser can
+thus use the project cache to serve it with no performance impact.
 
 The manifest file can be generated out-of-band using a
-:ref:`django command <command-cli>`, so you can execute the command manually or in
+:ref:`django command <command-cli>`, to execute the command manually or in
 a cron job, or using :ref:`web_ui` (since version 0.3.0).
 
 Cache invalidation
@@ -29,6 +29,9 @@ Cache invalidation
 Whenever a registered model is saved or deleted (see :ref:`appcache` on how to enable
 this for your application), manifest cache is marked as **dirty**; this has no
 immediate effect on the manifest file served, as the oudated copy is still served.
+
+To actually refresh the manifest file served to users, it's necessary to
+regenerate it (see above).
 
 URL discovery
 -------------
