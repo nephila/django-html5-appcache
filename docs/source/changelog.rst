@@ -3,7 +3,7 @@
 Changelog
 *********
 
-0.4 (2013-06-20)
+0.4 (2013-06-26)
 ------------------
 
 * Manifest file is now authentication-sensitive (see docs)

@@ -7,6 +7,7 @@ Advanced configuration
 While no specific configuration is needed to run ``html5-appcache``, you can
 customize its behavior for your own needs with the following parameters:
 
+
 .. setting:: HTML5_APPCACHE_DISABLE
 
 HTML5_APPCACHE_DISABLE
@@ -21,6 +22,7 @@ templatetag.
 
 *Defaults*: ``False``
 
+
 .. setting:: HTML5_APPCACHE_ADD_WILDCARD
 
 HTML5_APPCACHE_ADD_WILDCARD
@@ -32,6 +34,7 @@ download files not in the ``CACHE`` section.
 
 *Defaults*: ``True``
 
+
 .. setting:: HTML5_APPCACHE_CACHE_KEY
 
 HTML5_APPCACHE_CACHE_KEY
@@ -41,6 +44,7 @@ Name of the cache key.
 
 *Defaults*: ``html5_appcache``
 
+
 .. setting:: HTML5_APPCACHE_CACHE_DURATION
 
 HTML5_APPCACHE_CACHE_DURATION
@@ -49,6 +53,7 @@ HTML5_APPCACHE_CACHE_DURATION
 Duration of the cache values.
 
 *Default*: ``86400`` seconds
+
 
 .. setting:: HTML5_APPCACHE_USE_SITEMAP
 
@@ -60,6 +65,7 @@ discover the cacheable urls. If you want to disable, you must provide a urls lis
 
 *Default*: ``True``
 
+
 .. setting:: HTML5_APPCACHE_CACHED_URL
 
 HTML5_APPCACHE_CACHED_URL
@@ -70,6 +76,7 @@ urls, if it's not discoverable by the django application (e.g.: it's not managed
 by django or not linked to any page).
 
 *Default*: ``[]``
+
 
 .. setting:: HTML5_APPCACHE_EXCLUDE_URL
 
@@ -90,6 +97,7 @@ This way you can mask out *private* URLs or URLs that are not meant to be known.
 
 *Default*: ``[]``
 
+
 .. setting:: HTML5_APPCACHE_NETWORK_URL
 
 HTML5_APPCACHE_NETWORK_URL
@@ -100,6 +108,7 @@ URLs will be excluded by cached urls and set in the **NETWORK** section of the m
 
 *Default*: ``[]``
 
+
 .. setting:: HTML5_APPCACHE_FALLBACK_URL
 
 HTML5_APPCACHE_FALLBACK_URL
@@ -109,6 +118,7 @@ It's possible to provide a dictionary of urls to be included in the **FALLBACK**
 section. Key is the *original* url, value is the *fallback* url.
 
 *Default*: ``{}``
+
 
 .. setting:: HTML5_APPCACHE_OVERRIDE_URLCONF
 
@@ -121,6 +131,7 @@ apphooks works.
 See the **django CMS integration** section to know more (WiP)
 
 *Default*: ``False``
+
 
 .. setting:: HTML5_APPCACHE_OVERRIDDEN_URLCONF
 
