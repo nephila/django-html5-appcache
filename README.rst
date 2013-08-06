@@ -2,8 +2,17 @@
 django-html5-appcache
 =====================
 
+.. image:: https://badge.fury.io/py/django-html5-appcache.png
+        :target: http://badge.fury.io/py/django-html5-appcache
+
 .. image:: https://travis-ci.org/nephila/django-html5-appcache.png?branch=master
-   :align: right
+        :target: https://travis-ci.org/nephila/djangocms-twitter
+
+.. image:: https://pypip.in/d/django-html5-appcache/badge.png
+        :target: https://crate.io/packages/django-html5-appcache?version=latest
+
+.. image:: https://coveralls.io/repos/nephila/django-html5-appcache/badge.png?branch=master
+        :target: https://coveralls.io/r/nephila/django-html5-appcache?branch=master
 
 Application to manage HTML5 Appcache Manifest files for dynamic Django web applications.
 

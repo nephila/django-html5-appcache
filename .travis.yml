@@ -10,9 +10,15 @@ env:
   - TOX_ENV=cms24_15
 
 install:
-    - pip install tox --use-mirrors
+    - pip install tox
+
 script:
     tox -e $TOX_ENV
+
+after_success:
+  coveralls --config_file=coverage.rc
+
+
 notifications:
     email:
         recipients:

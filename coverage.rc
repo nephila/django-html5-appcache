@@ -1,0 +1,15 @@
+[run]
+source = html5_appcache
+branch = True
+omit =
+    html5_appcache/tests/*
+    html5_appcache/test_utils/*
+    html5_appcache/migrations/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
