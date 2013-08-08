@@ -5,6 +5,7 @@ omit =
     html5_appcache/tests/*
     html5_appcache/test_utils/*
     html5_appcache/migrations/*
+    */__init__.py
 
 [report]
 exclude_lines =
