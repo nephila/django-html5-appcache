@@ -9,7 +9,7 @@ env:
     - TOX_ENV=dj15
     - TOX_ENV=cms23
     - TOX_ENV=cms24_14
-    - TOX_ENV=cms24_15
+    - TOX_ENV=coveralls
 
 install:
     - pip install tox
