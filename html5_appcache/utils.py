@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-from urlparse import urlparse
+try:
+    from urlparse import urlparse
+except ImportError:
+    from urllib import parse as urlparse
 
 
 def is_external_url(url, request=None):

@@ -121,13 +121,11 @@ class UpdateCommandTestCase(BaseDataTestCase):
 %s/2/live/
 http://www.example.com/static/css/stile.css
 """ % (lang, lang)
-        t_fallback = """FALLBACK:
-http://www.example.com/static/img/icon1.png /static/img/fallback.png
-http://www.example.com/static/img/icon2.png /static/img/fallback.png
-"""
         call_command("update_manifest")
         manifest = get_cached_manifest()
         self.assertTrue(manifest.find("CACHE MANIFEST") > -1)
         self.assertTrue(manifest.find(t_cache) > -1)
         self.assertTrue(manifest.find(t_network) > -1)
-        self.assertTrue(manifest.find(t_fallback) > -1)
+        self.assertTrue(manifest.find('FALLBACK:') > -1)
+        self.assertTrue(manifest.find('icon2.png /static/img/fallback.png') > -1)
+        self.assertTrue(manifest.find('icon1.png /static/img/fallback.png') > -1)
