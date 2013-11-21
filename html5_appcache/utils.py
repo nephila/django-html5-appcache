@@ -16,6 +16,7 @@ def is_external_url(url, request=None):
         )
     return len(path.scheme) != 0 and ext_server
 
+
 def cache_badge(request, context, _template="html5_appcache/templatetags/icon.html"):
     """
     Renders the cache badge template

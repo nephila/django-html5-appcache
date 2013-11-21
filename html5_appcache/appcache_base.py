@@ -175,7 +175,7 @@ class AppCacheManager(object):
         """
         timestamp = get_cached_value("timestamp")
         if not timestamp:
-            timestamp = int(time.time()*100)*10000 + datetime.utcnow().microsecond
+            timestamp = int(time.time() * 100) * 10000 + datetime.utcnow().microsecond
             set_cached_value("timestamp", timestamp)
         return timestamp
 
@@ -264,7 +264,6 @@ class AppCacheManager(object):
         """
         from django.contrib.sites.models import get_current_site
         from django.test import Client
-        from django.contrib.sitemaps.views import sitemap
 
         def walk_sitemap(urlset, doc):
             """
@@ -293,15 +292,15 @@ class AppCacheManager(object):
         else:
             lang_fix = ""
         return map(lambda x: string.replace(
-            x,"%s://%s" % (req_protocol, req_site), lang_fix),
-                   local_urls)
+            x, "%s://%s" % (req_protocol, req_site), lang_fix), local_urls)
 
     def _fetch_url(self, client, url):
         """
         Scrape a single URL and fetches assets
         """
         if not is_external_url(url):
-            response = client.get(url, data={"appcache_analyze":1}, LANGUAGE_CODE=self.language)
+            response = client.get(url, data={"appcache_analyze": 1},
+                                  LANGUAGE_CODE=self.language)
             if response.status_code == 200:
                 self.add_appcache(response.appcache)
             elif response.status_code == 302:
@@ -328,7 +327,8 @@ class AppCacheManager(object):
         if not is_manifest_clean() and update:
             self.context = {
                 'version': self.get_version_timestamp(),
-                'date': datetime.fromtimestamp(self.get_version_timestamp()/1000000).isoformat(),
+                'date': datetime.fromtimestamp(self.get_version_timestamp() /
+                                               1000000).isoformat(),
                 'cached_urls': sorted(self.get_cached_urls()),
                 'network_urls': sorted(self.get_network_urls()),
                 'fallback_urls': self.get_fallback_urls(),

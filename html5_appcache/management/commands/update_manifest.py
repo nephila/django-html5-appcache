@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
-import sys
 from django.core.management.base import BaseCommand
-from django.test import RequestFactory, Client
+from django.test import RequestFactory
 from django.test.utils import override_settings
 
 from html5_appcache import appcache_registry
 from html5_appcache.cache import clear_cache_manifest
 from html5_appcache.settings import get_setting
-from html5_appcache.utils import is_external_url
 
 
 class Command(BaseCommand):

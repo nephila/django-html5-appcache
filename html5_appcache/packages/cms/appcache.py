@@ -5,8 +5,6 @@ from html5_appcache import appcache_registry
 from html5_appcache.appcache_base import BaseAppCache
 
 
-
-
 try:
     # These will fail with django CMS 3.0+
     from cms.plugins.text.models import Text
@@ -31,7 +29,7 @@ try:
         def signal_connector(self, instance, **kwargs):
             self.manager.reset_manifest()
     appcache_registry.register(CmsAppCache())
-except ImportError:
+except ImportError:  # pragma: no cache
     from djangocms_text_ckeditor.models import Text
     from djangocms_file.models import File
     from djangocms_flash.models import Flash

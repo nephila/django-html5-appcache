@@ -15,7 +15,7 @@ def appcache_link(parser, token):
     try:
         # split_contents() knows not to split quoted strings.
         tag_name, parameter = token.split_contents()
-    except ValueError, e:
+    except ValueError:
         # argument is optional
         pass
     return AppCacheNode(parameter)
@@ -24,6 +24,7 @@ def appcache_link(parser, token):
 class AppCacheNode(template.Node):
     """ Templatetag Node class """
     parameter = None
+
     def __init__(self, parameter):
         self.parameter = parameter
 
