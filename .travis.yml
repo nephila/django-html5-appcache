@@ -7,12 +7,13 @@ python:
 env:
     - TOX_ENV=dj14
     - TOX_ENV=dj15
+    - TOX_ENV=dj16
     - TOX_ENV=cms23
     - TOX_ENV=cms24_14
-    - TOX_ENV=coveralls
 
 install:
     - pip install tox
+    - pip install python-coveralls coverage
 
 script:
     - tox -e $TOX_ENV
@@ -20,6 +21,9 @@ script:
 after_success:
     - coveralls --config_file=coverage.rc
 
+matrix:
+    allow_failures:
+        - TOX_ENV=dj16
 
 notifications:
     email:
