@@ -22,3 +22,7 @@
  - Add HTML5_APPCACHE_EXCLUDE_URL setting
  - Fix HTML5_APPCACHE_NETWORK_URL and HTML5_APPCACHE_FALLBACK_URL settings
  - Manifest file is now authentication-sensitive (see docs)
+
+==== 0.4.1 (2014-01-05) ====
+
+ - Django 1.6 support
