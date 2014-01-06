@@ -48,3 +48,9 @@ If you want to use the development version install from github::
     $ pip install git+https://github.com/nephila/django-html5-appcache.git#egg=django-html5-appcache
 
 See `Documentation <https://django-html5-appcache.readthedocs.org>`_ for further details.
+
+
+.. image:: https://d2weczhvl823v0.cloudfront.net/nephila/django-html5-appcache/trend.png
+   :alt: Bitdeli badge
+   :target: https://bitdeli.com/free
+
