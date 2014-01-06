@@ -320,7 +320,6 @@ class AppCacheManager(object):
         for starting_url in urls:
             self._fetch_url(client, starting_url)
 
-
     def get_manifest(self, update=False):
         """
         Either get the manifest file out of the cache or render it and save in

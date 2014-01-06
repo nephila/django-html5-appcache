@@ -12,12 +12,16 @@ except ImportError:
     DJANGOCMS = False
     DJANGOCMS_2_3 = False
 
+
 DJANGO_1_3 = (LooseVersion(django.get_version()) < LooseVersion('1.4') and
               LooseVersion(django.get_version()) >= LooseVersion('1.3'))
 DJANGO_1_4 = (LooseVersion(django.get_version()) < LooseVersion('1.5') and
               LooseVersion(django.get_version()) >= LooseVersion('1.4'))
 DJANGO_1_5 = (LooseVersion(django.get_version()) < LooseVersion('1.6') and
               LooseVersion(django.get_version()) >= LooseVersion('1.5'))
+DJANGO_1_6 = (LooseVersion(django.get_version()) < LooseVersion('1.7') and
+              LooseVersion(django.get_version()) >= LooseVersion('1.6'))
+
 
 def get_setting(key):
     local_settings = {
