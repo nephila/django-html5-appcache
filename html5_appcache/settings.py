@@ -8,19 +8,19 @@ try:
     import cms
     DJANGOCMS = True
     DJANGOCMS_2_3 = LooseVersion(cms.__version__) < LooseVersion('2.4')
+    DJANGOCMS_2_4 = LooseVersion(cms.__version__) < LooseVersion('3.0')
+    DJANGOCMS_3_0 = LooseVersion(cms.__version__) < LooseVersion('3.1')
 except ImportError:
     DJANGOCMS = False
     DJANGOCMS_2_3 = False
+    DJANGOCMS_2_4 = False
+    DJANGOCMS_3_0 = False
 
 
-DJANGO_1_3 = (LooseVersion(django.get_version()) < LooseVersion('1.4') and
-              LooseVersion(django.get_version()) >= LooseVersion('1.3'))
-DJANGO_1_4 = (LooseVersion(django.get_version()) < LooseVersion('1.5') and
-              LooseVersion(django.get_version()) >= LooseVersion('1.4'))
-DJANGO_1_5 = (LooseVersion(django.get_version()) < LooseVersion('1.6') and
-              LooseVersion(django.get_version()) >= LooseVersion('1.5'))
-DJANGO_1_6 = (LooseVersion(django.get_version()) < LooseVersion('1.7') and
-              LooseVersion(django.get_version()) >= LooseVersion('1.6'))
+DJANGO_1_3 = (LooseVersion('1.4') > LooseVersion(django.get_version()) >= LooseVersion('1.3'))
+DJANGO_1_4 = (LooseVersion('1.5') > LooseVersion(django.get_version()) >= LooseVersion('1.4'))
+DJANGO_1_5 = (LooseVersion('1.6') > LooseVersion(django.get_version()) >= LooseVersion('1.5'))
+DJANGO_1_6 = (LooseVersion('1.7') > LooseVersion(django.get_version()) >= LooseVersion('1.6'))
 
 
 def get_setting(key):

@@ -3,14 +3,14 @@ from urlparse import urlparse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User, AnonymousUser
 from django.core.handlers.wsgi import WSGIRequest
-from django.test import SimpleTestCase, Client, RequestFactory
+from django.test import SimpleTestCase, Client
 from django.conf import settings
 from django.utils.encoding import force_unicode
 from django.utils.http import urlencode
-from django.utils.importlib import import_module
 
 from html5_appcache import autodiscover
-from html5_appcache.settings import DJANGOCMS, DJANGOCMS_2_3
+from html5_appcache.settings import (DJANGOCMS, DJANGOCMS_2_3,
+                                     DJANGOCMS_2_4, DJANGOCMS_3_0)
 from html5_appcache.cache import clear_cache_manifest
 from html5_appcache.test_utils.testapp.models import News
 
@@ -70,7 +70,10 @@ class BaseDataTestCase(SimpleTestCase):
             for lang in settings.LANGUAGES:
                 p = create_page("test%s" % lang[0], language=lang[0],
                                 template="base.html")
-                p.publish()
+                if DJANGOCMS_2_4:
+                    p.publish()
+                else:
+                    p.publish(lang[0])
 
     @classmethod
     def tearDownClass(cls):
