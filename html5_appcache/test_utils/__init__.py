@@ -2,7 +2,7 @@
 import sys
 import os
 
-from html5_appcache.settings import (DJANGOCMS, DJANGOCMS_2_3,
+from html5_appcache.settings import (DJANGO_1_6, DJANGOCMS, DJANGOCMS_2_3,
                                      DJANGOCMS_2_4, DJANGOCMS_3_0)
 
 INSTALLED_APPS = [
@@ -175,7 +175,10 @@ def run_tests():
 
     from django.test.utils import get_runner
 
-    failures = get_runner(settings)().run_tests(['html5_appcache'])
+    if DJANGO_1_6:
+        failures = get_runner(settings)().run_tests(['html5_appcache.tests'])
+    else:
+        failures = get_runner(settings)().run_tests(['html5_appcache'])
     sys.exit(failures)
 
 def setup_view(view, request, *args, **kwargs):

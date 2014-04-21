@@ -52,6 +52,10 @@ class BaseDataTestCase(SimpleTestCase):
             request.user = AnonymousUser()
         return request
 
+    def setUp(self):
+        super(BaseDataTestCase, self).setUp()
+        self.client = BaseClient()
+
     @classmethod
     def setUpClass(cls):
         cls.admin = User.objects.create_superuser(username="admin",
@@ -63,7 +67,6 @@ class BaseDataTestCase(SimpleTestCase):
         super(BaseDataTestCase, cls).setUpClass()
         News.objects.create(title="news1", body="body1")
         News.objects.create(title="news2", body="body2")
-        cls.client = BaseClient()
         autodiscover()
         if DJANGOCMS:
             from cms.api import create_page
