@@ -1,0 +1,15 @@
+django-cms<3.1
+django-filer
+cmsplugin_filer
+pillow
+djangocms_text_ckeditor
+djangocms_file
+djangocms_flash
+djangocms_googlemap
+djangocms_link
+djangocms_picture
+djangocms_video
+djangocms_teaser
+djangocms_twitter
+djangocms_inherit
+-r django-1.5.txt

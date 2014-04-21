@@ -81,7 +81,7 @@ class CacheStatusView(View):
                 request.user.has_perm('html5_appcache.can_view_cache_status')):
             filepath = os.path.join(settings.STATIC_ROOT, "img", "%s.png" % (
                 self.icons[int(is_manifest_clean())]
-            ) )
+            ))
             with open(filepath, "rb") as wrapper:
                 response = HttpResponse(list(wrapper), content_type='text/plain')
                 response['Content-Length'] = os.path.getsize(filepath)

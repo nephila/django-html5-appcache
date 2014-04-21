@@ -1,8 +1,9 @@
 language: python
 
 python:
-    - 2.6
+    - 3.3
     - 2.7
+    - 2.6
 
 env:
     - TOX_ENV=dj14
@@ -10,20 +11,37 @@ env:
     - TOX_ENV=dj16
     - TOX_ENV=cms23
     - TOX_ENV=cms24_14
+    - TOX_ENV=cms30_15
+    - TOX_ENV=cms30_16
 
 install:
     - pip install tox
-    - pip install python-coveralls coverage
+    - pip install coverage coveralls
 
 script:
     - tox -e $TOX_ENV
 
-after_success:
-    - coveralls --config_file=coverage.rc
+after_success: coveralls
 
 matrix:
     allow_failures:
-        - TOX_ENV=dj16
+      - python: 3.3
+        env: TOX_ENV=dj15
+      - python: 3.3
+        env: TOX_ENV=dj16
+      - python: 3.3
+        env: TOX_ENV=cms30_15
+      - python: 3.3
+        env: TOX_ENV=cms30_16
+    exclude:
+      - python: 3.3
+        env: TOX_ENV=dj14
+      - python: 3.3
+        env: TOX_ENV=cms23
+      - python: 3.3
+        env: TOX_ENV=cms24_14
+      - python: 3.3
+        env: TOX_ENV=cms24_15
 
 notifications:
     email:

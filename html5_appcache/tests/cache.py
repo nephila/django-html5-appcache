@@ -10,6 +10,7 @@ from html5_appcache.views import ManifestAppCache
 class CacheTest(TransactionTestCase):
 
     def setUp(self):
+        super(CacheTest, self).setUp()
         clear_cache_manifest()
 
     def test_cache(self):

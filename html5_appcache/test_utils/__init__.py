@@ -2,7 +2,8 @@
 import sys
 import os
 
-from html5_appcache.settings import DJANGOCMS, DJANGOCMS_2_3
+from html5_appcache.settings import (DJANGO_1_6, DJANGOCMS, DJANGOCMS_2_3,
+                                     DJANGOCMS_2_4, DJANGOCMS_3_0)
 
 INSTALLED_APPS = [
     'django.contrib.auth',
@@ -79,15 +80,26 @@ if DJANGOCMS:
             'html5_appcache.packages.filer',
             'html5_appcache.packages.cmsplugin_filer',
         ]
-        TEMPLATE_CONTEXT_PROCESSORS = [
-            'django.contrib.auth.context_processors.auth',
-            'django.core.context_processors.i18n',
-            'django.core.context_processors.request',
-            'django.core.context_processors.media',
-            'django.core.context_processors.static',
-            'cms.context_processors.media',
-            'sekizai.context_processors.sekizai',
-        ]
+        if DJANGOCMS_2_4:
+            TEMPLATE_CONTEXT_PROCESSORS = [
+                'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.i18n',
+                'django.core.context_processors.request',
+                'django.core.context_processors.media',
+                'django.core.context_processors.static',
+                'cms.context_processors.media',
+                'sekizai.context_processors.sekizai',
+            ]
+        else:
+            TEMPLATE_CONTEXT_PROCESSORS = [
+                'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.i18n',
+                'django.core.context_processors.request',
+                'django.core.context_processors.media',
+                'django.core.context_processors.static',
+                'cms.context_processors.cms_settings',
+                'sekizai.context_processors.sekizai',
+            ]
         CMS_TEMPLATES = (
             ('base.html', 'Template One'),
         )
@@ -163,7 +175,10 @@ def run_tests():
 
     from django.test.utils import get_runner
 
-    failures = get_runner(settings)().run_tests(['html5_appcache'])
+    if DJANGO_1_6:
+        failures = get_runner(settings)().run_tests(['html5_appcache.tests'])
+    else:
+        failures = get_runner(settings)().run_tests(['html5_appcache'])
     sys.exit(failures)
 
 def setup_view(view, request, *args, **kwargs):

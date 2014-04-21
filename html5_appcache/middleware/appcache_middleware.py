@@ -66,8 +66,8 @@ class AppCacheAssetsFromResponse(object):
         Extract assets from the a tag (only for opt-in link)
         """
         if ('href' in attrib and 'data-appcache' in attrib and
-            attrib['data-appcache'] == 'appcache'):
-                self._cached.add(attrib['href'])
+                attrib['data-appcache'] == 'appcache'):
+            self._cached.add(attrib['href'])
 
     def walk_tree(self, tree):
         """
@@ -91,7 +91,7 @@ class AppCacheAssetsFromResponse(object):
         This method is called only if ``appcache_analyze`` parameter is attached
         to the querystring, to avoid overhead during normal navigation
         """
-        if (response['Content-Type'].find("text/html")>-1 and
+        if (response['Content-Type'].find("text/html") > -1 and
                 request.GET.get("appcache_analyze", False)):
             lxdoc = document_fromstring(response.content)
             self.walk_tree(lxdoc)

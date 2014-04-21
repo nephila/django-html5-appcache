@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-from urlparse import urlparse
+try:
+    from urlparse import urlparse
+except ImportError:
+    from urllib import parse as urlparse
 
 
 def is_external_url(url, request=None):
@@ -15,6 +18,7 @@ def is_external_url(url, request=None):
             path.netloc
         )
     return len(path.scheme) != 0 and ext_server
+
 
 def cache_badge(request, context, _template="html5_appcache/templatetags/icon.html"):
     """

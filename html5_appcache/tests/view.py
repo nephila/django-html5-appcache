@@ -18,6 +18,7 @@ class ManifestViewTest(BaseDataTestCase):
         super(ManifestViewTest, cls).setUpClass()
 
     def setUp(self):
+        super(ManifestViewTest, self).setUp()
         clear_cache_manifest()
 
     def test_manifest_version(self):
